@@ -6,10 +6,9 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // To manage loading state
+  const [loading, setLoading] = useState(false); 
   const navigate = useNavigate();
 
-  // Clear localStorage when the component mounts
   useEffect(() => {
     localStorage.clear();
   }, []);
