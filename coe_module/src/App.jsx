@@ -1,14 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { PrimeReactProvider } from 'primereact/api';
+import 'primereact/resources/themes/lara-light-indigo/theme.css'; 
+import 'primereact/resources/primereact.min.css'; 
+import 'primeicons/primeicons.css'; 
+import RoutesComponent from './routes';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <h1>Welcome</h1>
-   )
+    <PrimeReactProvider>
+      <RoutesComponent /> 
+    </PrimeReactProvider>
+  );
 }
 
-export default App
+export default App;
