@@ -50,7 +50,6 @@ const LoginPage = () => {
 
         console.log("Login successful:", data);
 
-        // Redirect based on user_id
         if (data.user_id === 1) {
           navigate("/record");
         } else if (data.user_id === 2) {
