@@ -41,7 +41,7 @@ project-root/
 1. Clone the repository:
    ```bash
    git clone https://github.com/PragaL15/coe_module
-   cd project-root
+   cd coe_module
    ```
 
 2. Set up the backend:
