@@ -40,7 +40,7 @@ project-root/
 ### Setup Steps
 1. Clone the repository:
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/PragaL15/coe_module
    cd project-root
    ```
 
