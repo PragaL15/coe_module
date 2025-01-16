@@ -1,77 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginImage from "../../public/login.svg"; 
+import LoginImage from "../assets/login.svg"; // Ensure this path is correct
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); 
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
+    setError(""); // Clear error when typing
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    setError(""); // Clear error when typing
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = (e) => {
+    e.preventDefault(); // Prevent page reload
+    setLoading(true);
 
-    if (!username || !password) {
-      setError("Please enter both username and password.");
-      return;
-    }
-
-    setError(""); 
-    setLoading(true); 
-
-    try {
-      const response = await fetch("http://localhost:8080/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await response.json();
-
-      setLoading(false); 
-
-      if (response.ok && data.status) {
-        localStorage.setItem("authToken", data.token);
-        localStorage.setItem("role", data.role);
-        localStorage.setItem("user_id", data.user_id);
-
-        console.log("Login successful:", data);
-
-        if (data.user_id === 1) {
-          navigate("/record");
-        } else if (data.user_id === 2) {
-          navigate("/pastrec");
-        } else {
-          navigate("/");
-        }
+    // Mock login logic
+    setTimeout(() => {
+      if (username === "admin" && password === "password") {
+        navigate("/dashboard"); // Redirect to the dashboard after login
       } else {
-        setError(data.message || "Login failed. Please try again.");
+        setError("Invalid username or password");
       }
-    } catch (error) {
-      console.error("Login error:", error);
       setLoading(false);
-      setError("An error occurred. Please try again later.");
-    }
+    }, 1000);
   };
 
   return (
     <div className="flex h-screen justify-center items-center bg-custom-blue">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <div className="flex justify-center mb-6">
-          <img src={LoginImage} alt="Login" className="w-32 h-32 object-cover" />
+          <img src={LoginImage} alt="Login" className="w-12 h-12 object-cover" />
         </div>
 
         <h2 className="text-2xl font-bold text-center">Login</h2>
