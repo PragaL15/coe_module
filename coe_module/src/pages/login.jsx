@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import LoginImage from "../assets/login.svg"; // Ensure this path is correct
+import LoginImage from "../../public/login.png";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -37,9 +37,14 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen justify-center items-center bg-custom-blue">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+      <div className="w-full max-w-md p-4 space-y-6 bg-white rounded-lg shadow-md">
         <div className="flex justify-center mb-6">
-          <img src={LoginImage} alt="Login" className="w-12 h-12 object-cover" />
+          {/* Set the desired width and height for the image */}
+          <img
+            src={LoginImage}
+            alt="Login"
+            className="w-16 h-16 object-contain"
+          />
         </div>
 
         <h2 className="text-2xl font-bold text-center">Login</h2>
