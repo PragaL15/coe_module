@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.10",
     "@vitejs/plugin-react": "^4.3.4",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.1",
