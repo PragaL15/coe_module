@@ -37,7 +37,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen justify-center items-center">
-      <div className="w-full max-w-md p-4 space-y-6 ml-9 bg-black rounded-lg shadow-md">
+      <div className="w-full max-w-md p-4 space-y-6 ml-9 bg-slate rounded-lg shadow-md">
         <div className="flex justify-center mb-6">
           <img
             src="/login.png"
@@ -46,11 +46,11 @@ const LoginPage = () => {
           />
         </div>
 
-        <h2 className="text-sm font-bold text-red-500 text-center">Login</h2>
+        <h2 className="text-sm font-bold text-center">Login</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-md font-medium ">Username</label>
+            <label className="block text-sm font-medium ">Username</label>
             <input
               type="text"
               value={username}

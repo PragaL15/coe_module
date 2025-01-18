@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Custom Tailwind class for reduced padding in DataTable */
+.small-padding-table .p-datatable-tbody > tr > td,
+.small-padding-table .p-datatable-thead > tr > th {
+    @apply p-2.5;
+}
+.input-class-inp {
+    @apply w-full h-9 mt-1 border-2 rounded p-3 text-sm focus:outline-none focus:ring-0 focus:border-gray-400;
+}
+.input-class-drop {
+    @apply w-full h-9 mt-1 border rounded p-1 text-sm focus:outline-none focus:ring-0 focus:border-gray-400 z-auto;
+}
+
+
+.input-class-drop:focus-within {
+    outline: none;
+    border-color: #d1d5db;
+    box-shadow: none;
+  }
+
+.p-dropdown-label {
+    @apply text-sm p-1 text-gray-400;
+}
+
+.label-class {
+    @apply text-sm font-medium text-gray-700;
+  }
+  
+.p-dropdown-panel{   
+     @apply bg-white border border-gray-300 rounded-md shadow-lg ;
+}
+
+.p-dropdown-item {
+    @apply text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 px-3 py-2;
+}
+
+.p-dropdown-item.p-highlight {
+    @apply bg-red-50 text-red-700;
+}
+.custom-dropdown-panel {
+    position: absolute; 
+    z-index: 10; 
+    top: 100%; 
+}
