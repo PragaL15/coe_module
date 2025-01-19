@@ -17,7 +17,7 @@ const LoginPage = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    setError(""); // Clear error when typing
+    setError(""); 
   };
 
   const handleLogin = (e) => {
