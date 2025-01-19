@@ -36,7 +36,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen justify-center items-center">
-      <div className="w-full max-w-md p-4 space-y-6 ml-9 bg-slate rounded-lg shadow-md">
+      <div className="w-full max-w-md p-4 space-y-6 ml-9 bg-slate-200 rounded-lg shadow-md">
         <div className="flex justify-center mb-6">
           <img
             src="/login.png"
