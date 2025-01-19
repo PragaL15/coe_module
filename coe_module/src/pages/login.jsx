@@ -41,7 +41,7 @@ const LoginPage = () => {
           <img
             src="/login.png"
             alt="Login"
-            className="w-44 h-36"
+            className="w-44 h-44"
           />
         </div>
 
