@@ -21,10 +21,9 @@ const LoginPage = () => {
   };
 
   const handleLogin = (e) => {
-    e.preventDefault(); // Prevent page reload
+    e.preventDefault();
     setLoading(true);
 
-    // Mock login logic
     setTimeout(() => {
       if (username === "admin" && password === "password") {
         navigate("/dashboard"); 
