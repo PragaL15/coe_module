@@ -27,7 +27,7 @@ const LoginPage = () => {
     // Mock login logic
     setTimeout(() => {
       if (username === "admin" && password === "password") {
-        navigate("/dashboard"); // Redirect to the dashboard after login
+        navigate("/dashboard"); 
       } else {
         setError("Invalid username or password");
       }
@@ -42,7 +42,7 @@ const LoginPage = () => {
           <img
             src="/login.png"
             alt="Login"
-            style={{ width: "138px", height: "138px", objectFit: "cover" }}
+            className="w-44 h-36"
           />
         </div>
 
