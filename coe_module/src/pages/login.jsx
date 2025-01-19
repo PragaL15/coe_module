@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
-    setError(""); // Clear error when typing
+    setError(""); 
   };
 
   const handlePasswordChange = (e) => {
