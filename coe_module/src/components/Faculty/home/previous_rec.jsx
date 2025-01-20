@@ -6,8 +6,10 @@ export default function PreviousDetails() {
     const [prevDetails, setPrevDetails] = useState({
         TotalSession: '',
         TotalPaperAllocated: '',
-        TotalPaperCorrected: '',
-        TotalAmountRecived: '',
+        TotalPaperCorrectedUG: '',
+        TotalPaperCorrectedPG: '',
+        TotalAmountRecivedUG: '',
+        TotalAmountRecivedPG: '',
         AmountPending: '',
     });
 
@@ -22,23 +24,23 @@ export default function PreviousDetails() {
 
     return (
         <Splitter>
-            <SplitterPanel className="flex flex-col p-4">
-                <h3 className="text-lg font-bold mb-4">Previous Details Summary</h3>
-                <div className="flex flex-col gap-y-3">
+            <SplitterPanel className="flex flex-col p-4  border-2 rounded-md">
+                <h3 className="text-lg font-bold mb-6 ">Previous Details Summary</h3>
+                <div className="flex flex-col gap-y-3 text-sm">
                     <p>
                         <strong>Total Days:</strong> {prevDetails.TotalSession || '21'}
                     </p>
                     <p>
-                        <strong>Total Paper Allocated:</strong> {prevDetails.TotalPaperAllocated || '456'}
+                        <strong>Total Paper Corrected (UG):</strong> {prevDetails.TotalPaperCorrectedUG || '234'}
                     </p>
                     <p>
-                        <strong>Total Paper Corrected:</strong> {prevDetails.TotalPaperCorrected || '234'}
+                        <strong>Total Paper Corrected (PG):</strong> {prevDetails.TotalPaperCorrectedPG || '40'}
                     </p>
                     <p>
-                        <strong>Total Amount Received:</strong> {prevDetails.TotalAmountRecived || '3600'}
+                        <strong>Total Amount Received (UG):</strong> {prevDetails.TotalAmountRecivedUG || '3600'}
                     </p>
                     <p>
-                        <strong>Amount Pending:</strong> {prevDetails.AmountPending || '1000'}
+                        <strong>Total Amount Received (PG):</strong> {prevDetails.TotalAmountRecivedPG || '740'}
                     </p>
                 </div>
             </SplitterPanel>

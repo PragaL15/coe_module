@@ -8,7 +8,6 @@ export default function PersonalDetails() {
         department: '',
         mobileNumber: '',
         email: '',
-        dateOfJoin: '',
     });
 
     // Handle input changes
@@ -22,9 +21,9 @@ export default function PersonalDetails() {
 
     return (
         <Splitter>
-            <SplitterPanel className="flex flex-col p-4" size={75}>
-                <h3 className="text-lg font-bold mb-4">Faculty Details Summary</h3>
-                <div className="flex flex-col gap-y-3">
+            <SplitterPanel className="flex flex-col p-4 text-md border-2 rounded-md">
+                <h3 className="text-lg font-bold mb-2 ">Faculty Details Summary</h3>
+                <div className="flex flex-col text-sm gap-y-3">
                 <p>
                     <strong>Name:</strong> {facultyDetails.name || 'Dr.R.Gomathi'}
                 </p>
@@ -36,9 +35,6 @@ export default function PersonalDetails() {
                 </p>
                 <p>
                     <strong>Email ID:</strong> {facultyDetails.email || 'gomathir@bitsathy.ac.in'}
-                </p>
-                <p>
-                    <strong>Date of Joining:</strong> {facultyDetails.dateOfJoin || '21/2/2016'}
                 </p>
                 </div>
             </SplitterPanel>

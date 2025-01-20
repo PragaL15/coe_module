@@ -7,6 +7,8 @@ export default function BasicDemo() {
         { courseCode: 'CS102', sheets: 5 },
         { courseCode: 'CS103', sheets: 50 },
         { courseCode: 'CS104', sheets: 225 },
+        { courseCode: 'CS105', sheets: 325 },
+        { courseCode: 'CS105', sheets: 425 },
     ]);
 
     const [chartData, setChartData] = useState({});
@@ -40,6 +42,7 @@ export default function BasicDemo() {
         };
 
         const chartOptions = {
+            maintainAspectRatio: false, // Allows the chart to stretch
             scales: {
                 x: {
                     title: {
@@ -73,8 +76,10 @@ export default function BasicDemo() {
     }, [sheetsData]); 
 
     return (
-        <div className="w-full max-w-4xl h-28">
-            <Chart type="bar" data={chartData} options={chartOptions} />
+        
+        <div className="w-full max-w-7xl">
+            <Chart type="bar" data={chartData} options={chartOptions} style={{ width: '180%', height: '170%',border: '2px solid #e5e7eb',marginTop:'10px', borderRadius:'6px',
+  padding: '5px' }} />
         </div>
     );
 }
