@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
 export default function BasicDemo() {
-    // State to store number of sheets per course code
     const [sheetsData, setSheetsData] = useState([
         { courseCode: 'CS101', sheets: 25 },
         { courseCode: 'CS102', sheets: 5 },
@@ -45,36 +44,36 @@ export default function BasicDemo() {
                 x: {
                     title: {
                         display: true,
-                        text: 'Course Code', // X-axis title
+                        text: 'Course Code', 
                     },
                     grid: {
-                        display: false, // Removes grid lines for x-axis
+                        display: false, 
                     },
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'No. of Sheets', // Y-axis title
+                        text: 'No. of Sheets', 
                     },
                     beginAtZero: true,
                     grid: {
-                        display: false, // Removes grid lines for y-axis
+                        display: false, 
                     },
                 },
             },
             plugins: {
                 legend: {
-                    display: false, // Hide the legend
+                    display: false, 
                 },
             },
         };
 
         setChartData(chartData);
         setChartOptions(chartOptions);
-    }, [sheetsData]); // Dependency array ensures chart updates when `sheetsData` changes
+    }, [sheetsData]); 
 
     return (
-        <div className="w-full max-w-4xl h-96">
+        <div className="w-full max-w-4xl h-28">
             <Chart type="bar" data={chartData} options={chartOptions} />
         </div>
     );
