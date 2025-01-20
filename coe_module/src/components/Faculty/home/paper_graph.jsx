@@ -74,7 +74,7 @@ export default function BasicDemo() {
     }, [sheetsData]); // Dependency array ensures chart updates when `sheetsData` changes
 
     return (
-        <div className="card w-full max-h-40">
+        <div className="w-full max-w-4xl h-96">
             <Chart type="bar" data={chartData} options={chartOptions} />
         </div>
     );
