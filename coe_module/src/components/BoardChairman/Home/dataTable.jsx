@@ -9,10 +9,10 @@ export default function BoardTable() {
     useEffect(() => {
         // Fetching dummy data for demonstration
         const dummyData = [
-            { facultyName: 'John Doe', paperCount: 5, courseCode: 'CS101' },
-            { facultyName: 'Jane Smith', paperCount: 30, courseCode: 'IT202' },
-            { facultyName: 'Alice Johnson', paperCount: 79, courseCode: 'ENG303' },
-            { facultyName: 'Bob Brown', paperCount: 151, courseCode: 'MATH404' }
+            { facultyName: 'John Doe', paperCount: 5, courseCode: 'CS101',semcode:'2' },
+            { facultyName: 'Jane Smith', paperCount: 30, courseCode: 'IT202',semcode:'4' },
+            { facultyName: 'Alice Johnson', paperCount: 79, courseCode: 'ENG303',semcode:'2' },
+            { facultyName: 'Bob Brown', paperCount: 151, courseCode: 'MATH404' ,semcode:'6'}
         ];
         setProducts(dummyData);
     }, []);
@@ -50,13 +50,14 @@ export default function BoardTable() {
 };
 
     return (
-        <div className="card ml-56 mt-8 p-2 w-3/5 text-sm">
+        <div className="card ml-64 mt-8 p-2 w-4/5 text-sm">
             <DataTable value={products}  first={first} 
           rows={rows} 
-          paginator className="w-4/6">
+          paginator className="w-3/4">
                 <Column field="facultyName" header="Faculty Name"  className=" text-sm"></Column>
                 <Column body={statusBodyTemplate} header="Paper Count"  className="text-sm"></Column>
                 <Column field="courseCode" header="Course Code"  className="text-sm"></Column>
+                <Column field="semcode" header="Semester Code"  className="text-sm"></Column>
             </DataTable>
         </div>
     );

@@ -6,6 +6,7 @@ import Home from "./pages/Faculty/Home";
 import RequestForm from "./pages/Faculty/request"
 import StatusPage from "./pages/Faculty/StatusTable"
 import BoardHome from "./pages/BoardChairman/Home";
+
 const RoutesComponent = () => {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ const RoutesComponent = () => {
         <Route path="/FacRequest" element={<RequestForm />} />
         <Route path="/FacRequestStatus" element={<StatusPage />} />
         <Route path="/BoardHome" element={<BoardHome />} />
+        
       </Routes>
     </BrowserRouter>
   );

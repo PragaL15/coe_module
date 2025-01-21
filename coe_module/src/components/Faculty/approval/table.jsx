@@ -42,12 +42,6 @@ export default function ApprovalStatus({ currentProduct }) {
     },
   ];
 
-  const getNextProduct = (currentId) => {
-    const currentIndex = products.findIndex((product) => product.id === currentId);
-    const nextIndex = (currentIndex + 1) % products.length;
-    return products[nextIndex];
-  };
-
   const statusBodyTemplate = (rowData) => {
     const getClassName = (status) => {
       switch (status) {
@@ -68,10 +62,19 @@ export default function ApprovalStatus({ currentProduct }) {
     );
   };
 
-  // If `currentProduct` exists, display it; otherwise, show all products.
+  // If `currentProduct` exists and matches, display it; otherwise, show all products.
+  const filteredProducts = currentProduct
+    ? products.filter((product) => product.id === currentProduct.id)
+    : products;
+
   return (
     <div className="text-sm w-4/5 ml-14 mt-7 justify-center">
-      <DataTable value={currentProduct ? [currentProduct] : products} paginator className="border border-gray-300 rounded-md">
+      <DataTable
+        value={filteredProducts}
+        paginator
+        rows={2}
+        className="border border-gray-300 rounded-md"
+      >
         <Column field="facultyName" header="Faculty Name" className="border border-gray-300 text-sm" />
         <Column field="courseCode" header="Course Code" className="border border-gray-300 text-sm" />
         <Column field="semesterCode" header="Semester Code" className="border border-gray-300 text-sm" />
@@ -84,4 +87,4 @@ export default function ApprovalStatus({ currentProduct }) {
   );
 }
 
-export { ApprovalStatus as Table, ApprovalStatus as Logic }; // Share data and logic
+export { ApprovalStatus as Table, ApprovalStatus as Logic };

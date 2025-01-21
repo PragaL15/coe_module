@@ -12,6 +12,7 @@ module.exports = {
         "pale-blue": "#defaf3",
         "rec_bac": "#defaf3",
         "Add_details_bac": "#fcf4f0",
+        "card-background": "#7FBBF6",
       },
       height: {
         "88": "22rem",
