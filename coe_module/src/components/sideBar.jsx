@@ -22,7 +22,7 @@ const Sidebar = ({ children }) => {
     const allItems = [
         { label: 'Home', icon: 'pi pi-home', route: '/FacHome', allowedUserIds: [1] },
         { label: 'Request', icon: 'pi pi-file', route: '/FacRequest', allowedUserIds: [1] },
-        { label: 'Approval status', icon: 'pi pi-file', route: '/FacApproval', allowedUserIds: [2] },
+        { label: 'Approval status', icon: 'pi pi-file', route: '/FacApproval', allowedUserIds: [1] },
         { label: 'Logout', icon: 'pi pi-sign-out', route: '/logout', allowedUserIds: [1] },
     ];
 
@@ -61,8 +61,8 @@ const Sidebar = ({ children }) => {
                     isMenuVisible ? 'translate-x-0' : '-translate-x-full'
                 } md:translate-x-0`}
             >
-
-                <h2 className="text-black text-2xl font-medium text-center pb-4">COE Module</h2>
+{/* 
+                <h2 className="text-black text-2xl font-medium text-center pb-4">COE Module</h2> */}
                 {items.map((item) => (
                     <div
                         key={item.label}

@@ -8,7 +8,7 @@ export default function BasicDemo() {
         { courseCode: 'CS103', sheets: 50 },
         { courseCode: 'CS104', sheets: 225 },
         { courseCode: 'CS105', sheets: 325 },
-        { courseCode: 'CS105', sheets: 425 },
+        { courseCode: 'CS106', sheets: 425 },
     ]);
 
     const [chartData, setChartData] = useState({});
@@ -29,12 +29,16 @@ export default function BasicDemo() {
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(201, 203, 207, 0.2)',
                     ],
                     borderColor: [
                         'rgb(255, 159, 64)',
                         'rgb(75, 192, 192)',
                         'rgb(54, 162, 235)',
                         'rgb(153, 102, 255)',
+                        'rgb(255, 99, 132)',
+                        'rgb(201, 203, 207)',
                     ],
                     borderWidth: 1,
                 },
@@ -42,44 +46,63 @@ export default function BasicDemo() {
         };
 
         const chartOptions = {
-            maintainAspectRatio: false, // Allows the chart to stretch
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Course Code', 
+                        text: 'Course Code',
+                        padding: { top: 10 }, // Adds margin between the chart and the title
+                        font: {
+                            size: 14,
+                        },
                     },
                     grid: {
-                        display: false, 
+                        display: false,
                     },
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'No. of Sheets', 
+                        text: 'No. of Sheets',
+                        font: {
+                            size: 14,
+                        },
                     },
                     beginAtZero: true,
                     grid: {
-                        display: false, 
+                        display: false,
                     },
                 },
             },
             plugins: {
                 legend: {
-                    display: false, 
+                    display: false,
                 },
             },
         };
 
         setChartData(chartData);
         setChartOptions(chartOptions);
-    }, [sheetsData]); 
+    }, [sheetsData]);
 
     return (
-        
         <div className="w-full max-w-7xl">
-            <Chart type="bar" data={chartData} options={chartOptions} style={{ width: '180%', height: '170%',border: '2px solid #e5e7eb',marginTop:'10px', borderRadius:'6px',
-  padding: '5px' }} />
+            <Chart
+                type="bar"
+                data={chartData}
+                options={chartOptions}
+                style={{
+                    width: '180%',
+                    height: '170%',
+                    border: '2px solid #e5e7eb',
+                    marginTop: '6px',
+                    borderRadius: '6px',
+                    marginBottom: '10px',
+                    paddingBottom: '15px',
+                    paddingTop: '16px',
+                }}
+            />
         </div>
     );
 }

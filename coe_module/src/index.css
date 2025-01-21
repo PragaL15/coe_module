@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.p-paginator .p-paginator-page {
+  @apply text-sm font-medium text-gray-800;
+}

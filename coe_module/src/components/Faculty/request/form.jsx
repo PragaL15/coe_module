@@ -20,7 +20,6 @@ export default function PatientForm({
 
   const [errors, setErrors] = useState({});
 
-  // Mock dropdown options
   const facultyOptions = [
     { label: "Dr. John Smith", value: "Dr. John Smith" },
     { label: "Prof. Jane Doe", value: "Prof. Jane Doe" },
@@ -55,7 +54,6 @@ export default function PatientForm({
   const handleSubmit = () => {
     const newErrors = {};
 
-    // Validations
     if (!facultyName) newErrors.facultyName = "Faculty name is required";
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!semesterCode) newErrors.semesterCode = "Semester code is required";
@@ -174,7 +172,7 @@ export default function PatientForm({
           <Calendar
             value={deadline}
             onChange={(e) => setDeadline(e.value)}
-            className="input-class-drop"
+            className="input-class-drop p-calendar small-calender"
             placeholder="Select Deadline"
             dateFormat="dd/mm/yy"
           />

@@ -1,40 +1,29 @@
 import React from "react";
-import "../components/topnav.css";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
 function HorizontalNavbar({ toggleVerticalNavbar }) {
   return (
-    <div className="total-h-navbar">
-      <div className="website-name">
-        <h3 className="iqac-title">IQAC</h3>
-        <div className="menu-open-icon" onClick={toggleVerticalNavbar}>
-          <MenuRoundedIcon
-            className="h-nav-menu-icon"
-            sx={{ fontSize: 30 }}
-          ></MenuRoundedIcon>
+    <div className="w-full flex justify-between z-1000">
+      <div className="flex items-center px-5 ml-2">
+        <h3 className="text-xl font-semibold">IQAC</h3>
+        <div className="ml-2 cursor-pointer" onClick={toggleVerticalNavbar}>
+          <MenuRoundedIcon className="text-button mt-2 text-3xl hover:bg-button hover:text-background-2 rounded transition-all duration-200" />
         </div>
       </div>
 
-      <div>
-        <nav>
-          <ul className="nav-list-items">
-            <li>
-              <AccountCircleRoundedIcon
-                className="h-nav-icons"
-                sx={{ fontSize: 32 }}
-              ></AccountCircleRoundedIcon>
-            </li>
-            <li>
-              <SettingsRoundedIcon
-                className="h-nav-icons"
-                sx={{ fontSize: 32 }}
-              ></SettingsRoundedIcon>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <nav>
+        <ul className="flex items-center justify-center z-9998 space-x-4">
+          
+          <li>
+            <AccountCircleRoundedIcon className="text-button text-2xl hover:bg-button hover:text-background-2 rounded transition-all duration-200" />
+          </li>
+          <li>
+            <SettingsRoundedIcon className="text-button text-2xl hover:bg-button hover:text-background-2 rounded transition-all duration-200" />
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }
