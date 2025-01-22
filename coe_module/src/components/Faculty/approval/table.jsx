@@ -72,6 +72,7 @@ export default function ApprovalStatus({ currentProduct }) {
       <DataTable
         value={filteredProducts}
         paginator
+        paginatorClassName="text-xxs p-1" 
         rows={2}
         className="border border-gray-300 rounded-md"
       >
