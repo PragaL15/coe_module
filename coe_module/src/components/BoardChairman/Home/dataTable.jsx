@@ -53,11 +53,11 @@ export default function BoardTable() {
         <div className="card ml-64 mt-8 p-2 w-4/5 text-sm">
             <DataTable value={products}  first={first} 
           rows={rows} 
-          paginator className="w-3/4">
-                <Column field="facultyName" header="Faculty Name"  className=" text-sm"></Column>
-                <Column body={statusBodyTemplate} header="Paper Count"  className="text-sm"></Column>
-                <Column field="courseCode" header="Course Code"  className="text-sm"></Column>
-                <Column field="semcode" header="Semester Code"  className="text-sm"></Column>
+          paginator className="w-3/4 text-sm">
+                <Column field="facultyName" header="Faculty Name"  className="text-sm mt-1 p-3 border border-gray-300"></Column>
+                <Column body={statusBodyTemplate} header="Paper Count"  className="text-sm mt-1 p-3 border border-gray-300"></Column>
+                <Column field="courseCode" header="Course Code"  className="text-sm mt-1 p-3 border border-gray-300"></Column>
+                <Column field="semcode" header="Semester Code"  className="text-smtext-sm mt-1 p-3 border border-gray-300"></Column>
             </DataTable>
         </div>
     );
