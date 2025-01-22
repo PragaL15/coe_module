@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Calendar } from "primereact/calendar";
@@ -18,38 +18,76 @@ export default function PatientForm({
   const [reason, setReason] = useState("");
   const [referral, setReferral] = useState("");
 
+  const [facultyOptions, setFacultyOptions] = useState([]);
+  const [courseOptions, setCourseOptions] = useState([]);
+  const [semesterOptions, setSemesterOptions] = useState([]);
+  const [departmentOptions, setDepartmentOptions] = useState([]);
+  const [academicOptions, setAcademicOptions] = useState([]);
+
   const [errors, setErrors] = useState({});
 
-  const facultyOptions = [
-    { label: "Dr. John Smith", value: "Dr. John Smith" },
-    { label: "Prof. Jane Doe", value: "Prof. Jane Doe" },
-    { label: "Dr. Emily Davis", value: "Dr. Emily Davis" },
-  ];
+  useEffect(() => {
+    fetchFacultyData();
+    fetchCourseData();
+    fetchSemesterData();
+    fetchDepartmentData();
+    fetchAcademicData();
+  }, []);
 
-  const courseOptions = [
-    { label: "CS101 - Intro to CS", value: "CS101" },
-    { label: "CS201 - Algorithms", value: "CS201" },
-    { label: "CS301 - Databases", value: "CS301" },
-  ];
+  const fetchData = async (url, setOptions, labelKey, valueKey) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
+      const data = await response.json();
+      const options = data.map((item) => ({
+        label: item[labelKey],
+        value: item[valueKey],
+      }));
+      setOptions(options);
+    } catch (error) {
+      console.error(`Error fetching data from ${url}:`, error);
+    }
+  };
 
-  const semesterOptions = [
-    { label: "Semester 1", value: "Sem1" },
-    { label: "Semester 2", value: "Sem2" },
-    { label: "Semester 3", value: "Sem3" },
-  ];
+  const fetchFacultyData = () =>
+    fetchData(
+      "http://localhost:4000/api/faculty",
+      setFacultyOptions,
+      "faculty_name",
+      "id"
+    );
 
-  const academicYearOptions = [
-    { label: "2023-2024", value: "2023-2024" },
-    { label: "2024-2025", value: "2024-2025" },
-    { label: "2025-2026", value: "2025-2026" },
-  ];
+  const fetchCourseData = () =>
+    fetchData(
+      "http://localhost:4000/api/courseOption",
+      setCourseOptions,
+      "course_code",
+      "id"
+    );
 
-  const departmentOptions = [
-    { label: "Computer Science", value: "CS" },
-    { label: "Electrical Engineering", value: "EE" },
-    { label: "Mechanical Engineering", value: "ME" },
-    { label: "Civil Engineering", value: "CE" },
-  ];
+  const fetchSemesterData = () =>
+    fetchData(
+      "http://localhost:4000/api/semOption",
+      setSemesterOptions,
+      "sem_code",
+      "id"
+    );
+
+  const fetchDepartmentData = () =>
+    fetchData(
+      "http://localhost:4000/api/deptOption",
+      setDepartmentOptions,
+      "dept_name",
+      "id"
+    );
+
+  const fetchAcademicData = () =>
+    fetchData(
+      "http://localhost:4000/api/academicOption",
+      setAcademicOptions,
+      "academic_year",
+      "id"
+    );
 
   const handleSubmit = () => {
     const newErrors = {};
@@ -141,7 +179,7 @@ export default function PatientForm({
           <label className="label-class">Academic Year:</label>
           <Dropdown
             value={academicYear}
-            options={academicYearOptions}
+            options={academicOptions}
             onChange={(e) => setAcademicYear(e.value)}
             className="input-class-drop"
             placeholder="Select Academic Year"
