@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
-import { Calendar } from "primereact/calendar";
 import { Button } from "primereact/button";
 
-export default function PatientForm({
-  goToStepper = () => {},
-  exitStepper = () => {},
-}) {
-  const [facultyName, setFacultyName] = useState("");
-  const [courseCode, setCourseCode] = useState("");
+export default function PatientForm({ goToStepper = () => {}, exitStepper = () => {} }) {
+  const [faculty_id, setFaculty_id] = useState("");
+  const [courseCode, setCourseCode] = useState();
   const [semesterCode, setSemesterCode] = useState("");
   const [academicYear, setAcademicYear] = useState("");
   const [department, setDepartment] = useState("");
-  const [deadline, setDeadline] = useState(null);
-  const [pendingPapers, setPendingPapers] = useState("");
+  const [deadline, setDeadline] = useState();
+  const [papers_left, setPendingPapers] = useState(0);
   const [reason, setReason] = useState("");
-  const [referral, setReferral] = useState("");
 
   const [facultyOptions, setFacultyOptions] = useState([]);
   const [courseOptions, setCourseOptions] = useState([]);
@@ -27,11 +22,11 @@ export default function PatientForm({
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    fetchFacultyData();
-    fetchCourseData();
-    fetchSemesterData();
-    fetchDepartmentData();
-    fetchAcademicData();
+    fetchData("http://localhost:4000/api/faculty", setFacultyOptions, "faculty_id", "faculty_id");
+    fetchData("http://localhost:4000/api/courseOption", setCourseOptions, "course_code", "course_id");
+    fetchData("http://localhost:4000/api/semOption", setSemesterOptions, "sem_code", "sem_code");
+    fetchData("http://localhost:4000/api/deptOption", setDepartmentOptions, "dept_name", "dept_name");
+    fetchData("http://localhost:4000/api/academicOption", setAcademicOptions, "academic_year", "academic_year");
   }, []);
 
   const fetchData = async (url, setOptions, labelKey, valueKey) => {
@@ -40,8 +35,8 @@ export default function PatientForm({
       if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
       const data = await response.json();
       const options = data.map((item) => ({
-        label: item[labelKey],
-        value: item[valueKey],
+        label: item[labelKey], // Display text in the dropdown
+        value: item[valueKey], // Value to store when selected
       }));
       setOptions(options);
     } catch (error) {
@@ -49,58 +44,18 @@ export default function PatientForm({
     }
   };
 
-  const fetchFacultyData = () =>
-    fetchData(
-      "http://localhost:4000/api/faculty",
-      setFacultyOptions,
-      "faculty_name",
-      "id"
-    );
-
-  const fetchCourseData = () =>
-    fetchData(
-      "http://localhost:4000/api/courseOption",
-      setCourseOptions,
-      "course_code",
-      "id"
-    );
-
-  const fetchSemesterData = () =>
-    fetchData(
-      "http://localhost:4000/api/semOption",
-      setSemesterOptions,
-      "sem_code",
-      "id"
-    );
-
-  const fetchDepartmentData = () =>
-    fetchData(
-      "http://localhost:4000/api/deptOption",
-      setDepartmentOptions,
-      "dept_name",
-      "id"
-    );
-
-  const fetchAcademicData = () =>
-    fetchData(
-      "http://localhost:4000/api/academicOption",
-      setAcademicOptions,
-      "academic_year",
-      "id"
-    );
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const newErrors = {};
 
-    if (!facultyName) newErrors.facultyName = "Faculty name is required";
+    if (!faculty_id) newErrors.faculty_id = "Faculty ID is required";
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!semesterCode) newErrors.semesterCode = "Semester code is required";
     if (!academicYear) newErrors.academicYear = "Academic year is required";
     if (!department) newErrors.department = "Department is required";
     if (!deadline) newErrors.deadline = "Deadline is required";
-    if (!pendingPapers) newErrors.pendingPapers = "Number of papers is required";
+    if (!papers_left || parseInt(papers_left) < 0)
+      newErrors.papers_left = "Valid number of pending papers is required";
     if (!reason) newErrors.reason = "Reason is required";
-    if (!referral) newErrors.referral = "Referral is required";
 
     setErrors(newErrors);
 
@@ -110,37 +65,53 @@ export default function PatientForm({
     }
 
     const formData = {
-      facultyName,
-      courseCode,
-      semesterCode,
-      academicYear,
-      department,
-      deadline,
-      pendingPapers,
-      reason,
-      referral,
+      faculty_id,
+      papers_left,
+      course_id: courseCode, // Send course_id
+      remarks: reason,
+      approval_status: 0, // Default to 0
+      status: 0, // Default to 0
+      sem_code: semesterCode,
+      sem_academic_year: academicYear,
+      year: department,
+      deadline_left: parseInt(deadline, 10),
     };
 
-    console.log("Form Submitted", formData);
-    alert("Form submitted successfully");
+    try {
+      const response = await fetch("http://localhost:4000/api/FacultyRequestSubmit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error("Failed to submit form data");
+      const result = await response.json();
+      console.log("Form Submitted", result);
+      alert("Form submitted successfully");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred while submitting the form. Please try again.");
+    }
   };
 
   return (
     <div className="w-full p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Add Academic Details</h1>
       <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
-        {/* Faculty Name */}
+        {/* Faculty ID */}
         <div>
-          <label className="label-class">Faculty Name:</label>
+          <label className="label-class">Faculty ID:</label>
           <Dropdown
-            value={facultyName}
+            value={faculty_id}
             options={facultyOptions}
-            onChange={(e) => setFacultyName(e.value)}
+            onChange={(e) => setFaculty_id(e.value)}
             className="input-class-drop"
-            placeholder="Select Faculty Name"
+            placeholder="Select Faculty ID"
           />
-          {errors.facultyName && (
-            <span className="text-red-500 text-sm">{errors.facultyName}</span>
+          {errors.faculty_id && (
+            <span className="text-red-500 text-sm">{errors.faculty_id}</span>
           )}
         </div>
 
@@ -148,8 +119,8 @@ export default function PatientForm({
         <div>
           <label className="label-class">Course Code:</label>
           <Dropdown
-            value={courseCode}
-            options={courseOptions}
+            value={courseCode} // Stores course_id
+            options={courseOptions} // Options with course_code as label and course_id as value
             onChange={(e) => setCourseCode(e.value)}
             className="input-class-drop"
             placeholder="Select Course Code"
@@ -207,12 +178,11 @@ export default function PatientForm({
         {/* Deadline */}
         <div>
           <label className="label-class">Deadline:</label>
-          <Calendar
+          <InputText
             value={deadline}
-            onChange={(e) => setDeadline(e.value)}
-            className="input-class-drop p-calendar small-calender"
-            placeholder="Select Deadline"
-            dateFormat="dd/mm/yy"
+            onChange={(e) => setDeadline(e.target.value)}
+            className="input-class-inp"
+            placeholder="Enter Deadline"
           />
           {errors.deadline && (
             <span className="text-red-500 text-sm">{errors.deadline}</span>
@@ -223,13 +193,14 @@ export default function PatientForm({
         <div>
           <label className="label-class">Pending Number of Papers:</label>
           <InputText
-            value={pendingPapers}
-            onChange={(e) => setPendingPapers(e.target.value)}
-            className="input-class-inp"
-            placeholder="Enter Pending Papers"
-          />
-          {errors.pendingPapers && (
-            <span className="text-red-500 text-sm">{errors.pendingPapers}</span>
+  value={papers_left}
+  onChange={(e) => setPendingPapers(parseInt(e.target.value, 10))}
+  className="input-class-inp"
+  placeholder="Enter Pending Papers"
+/>
+
+          {errors.papers_left && (
+            <span className="text-red-500 text-sm">{errors.papers_left}</span>
           )}
         </div>
 
@@ -244,20 +215,6 @@ export default function PatientForm({
           />
           {errors.reason && (
             <span className="text-red-500 text-sm">{errors.reason}</span>
-          )}
-        </div>
-
-        {/* Referral */}
-        <div>
-          <label className="label-class">Referral:</label>
-          <InputText
-            value={referral}
-            onChange={(e) => setReferral(e.target.value)}
-            className="input-class-inp"
-            placeholder="Enter Referral"
-          />
-          {errors.referral && (
-            <span className="text-red-500 text-sm">{errors.referral}</span>
           )}
         </div>
       </div>
