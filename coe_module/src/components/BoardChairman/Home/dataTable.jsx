@@ -7,7 +7,6 @@ export default function BoardTable() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Fetching dummy data for demonstration
     const dummyData = [
       {
         facultyName: "John Doe",
