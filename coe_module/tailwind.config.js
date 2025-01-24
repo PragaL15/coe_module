@@ -17,8 +17,11 @@ module.exports = {
       height: {
         "88": "22rem",
       },
+      width: {
+        '9/10': '90%',  
+      },
       fontSize: {
-        "xxs": "10px", // Smallest text size
+        "xxs": "10px", 
       },
       fontFamily: {
         sans: ['Mona Sans', 'sans-serif'], // Use Mona Sans as the default sans-serif font

@@ -3,12 +3,15 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 
-export default function BECallocating({ goToStepper = () => {}, exitStepper = () => {} }) {
+export default function BECallocating({
+  goToStepper = () => {},
+  exitStepper = () => {},
+}) {
   const [faculty_id, setFaculty_id] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [sem_code, setSem_code] = useState("");
   const [academicYear, setAcademicYear] = useState("");
-  const [dept_id, setDept_id] = useState(0);
+  const [dept_id, setDept_id] = useState(""); // Updated field name
   const [paper_allocated, setPaper_allocated] = useState(0);
   const [deadline, setDeadline] = useState(0);
   const [bce_id, setBce_id] = useState("");
@@ -38,12 +41,42 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
   };
 
   useEffect(() => {
-    fetchData("http://localhost:4000/api/faculty", setFacultyOptions, "faculty_id", "faculty_id");
-    fetchData("http://localhost:4000/api/courseOption", setCourseOptions, "course_code", "course_id");
-    fetchData("http://localhost:4000/api/semOption", setSemesterOptions, "sem_code", "sem_code");
-    fetchData("http://localhost:4000/api/deptOption", setDepartmentOptions, "dept_name", "dept_id");
-    fetchData("http://localhost:4000/api/academicOption", setAcademicOptions, "academic_year", "academic_year");
-    fetchData("http://localhost:4000/api/bceOption", setBceOptions, "bce_id", "bce_id");
+    fetchData(
+      "http://localhost:4000/api/faculty",
+      setFacultyOptions,
+      "faculty_id",
+      "faculty_id"
+    );
+    fetchData(
+      "http://localhost:4000/api/courseOption",
+      setCourseOptions,
+      "course_code",
+      "course_id"
+    );
+    fetchData(
+      "http://localhost:4000/api/semOption",
+      setSemesterOptions,
+      "sem_code",
+      "sem_code"
+    );
+    fetchData(
+      "http://localhost:4000/api/deptOption",
+      setDepartmentOptions,
+      "dept_name",
+      "id"
+    ); // Updated field
+    fetchData(
+      "http://localhost:4000/api/academicOption",
+      setAcademicOptions,
+      "academic_year",
+      "academic_year"
+    );
+    fetchData(
+      "http://localhost:4000/api/bceOption",
+      setBceOptions,
+      "bce_id",
+      "bce_id"
+    );
   }, []);
 
   const handleSubmit = async () => {
@@ -53,10 +86,12 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!sem_code) newErrors.sem_code = "Semester code is required";
     if (!academicYear) newErrors.academicYear = "Academic year is required";
-    if (!dept_id) newErrors.dept_id = "Department is required";
-    if (!deadline || isNaN(deadline)) newErrors.deadline = "Deadline is required";
+    if (!dept_id) newErrors.dept_id = "Department is required"; // Updated field
+    if (!deadline || isNaN(deadline))
+      newErrors.deadline = "Deadline is required";
     if (!bce_id) newErrors.bce_id = "BCE ID is required";
-    if (!paper_allocated || isNaN(paper_allocated)) newErrors.paper_allocated = "Papers Allotted must be a number";
+    if (!paper_allocated || isNaN(paper_allocated))
+      newErrors.paper_allocated = "Papers Allotted must be a number";
 
     setErrors(newErrors);
 
@@ -70,7 +105,7 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
       paper_allocated,
       course_id: courseCode,
       sem_code: sem_code,
-      dept_id: parseInt(dept_id, 10),
+      dept_id, // Updated field
       bce_id,
       deadline: parseInt(deadline, 10),
     };
@@ -94,7 +129,7 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
       setFaculty_id("");
       setCourseCode("");
       setSem_code("");
-      setDept_id(0);
+      setDept_id("");
       setDeadline(0);
       setPaper_allocated(0);
       setBce_id("");
@@ -118,7 +153,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-drop"
             placeholder="Select Faculty ID"
           />
-          {errors.faculty_id && <span className="text-red-500 text-sm">{errors.faculty_id}</span>}
+          {errors.faculty_id && (
+            <span className="text-red-500 text-sm">{errors.faculty_id}</span>
+          )}
         </div>
 
         <div>
@@ -130,7 +167,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-drop"
             placeholder="Select Course Code"
           />
-          {errors.courseCode && <span className="text-red-500 text-sm">{errors.courseCode}</span>}
+          {errors.courseCode && (
+            <span className="text-red-500 text-sm">{errors.courseCode}</span>
+          )}
         </div>
 
         <div>
@@ -142,7 +181,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-drop"
             placeholder="Select Semester Code"
           />
-          {errors.sem_code && <span className="text-red-500 text-sm">{errors.sem_code}</span>}
+          {errors.sem_code && (
+            <span className="text-red-500 text-sm">{errors.sem_code}</span>
+          )}
         </div>
 
         <div>
@@ -154,7 +195,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-drop"
             placeholder="Select Academic Year"
           />
-          {errors.academicYear && <span className="text-red-500 text-sm">{errors.academicYear}</span>}
+          {errors.academicYear && (
+            <span className="text-red-500 text-sm">{errors.academicYear}</span>
+          )}
         </div>
 
         <div>
@@ -166,7 +209,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-drop"
             placeholder="Select Department"
           />
-          {errors.dept_id && <span className="text-red-500 text-sm">{errors.dept_id}</span>}
+          {errors.dept_id && (
+            <span className="text-red-500 text-sm">{errors.dept_id}</span>
+          )}
         </div>
 
         <div>
@@ -177,7 +222,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-inp"
             placeholder="Enter Deadline"
           />
-          {errors.deadline && <span className="text-red-500 text-sm">{errors.deadline}</span>}
+          {errors.deadline && (
+            <span className="text-red-500 text-sm">{errors.deadline}</span>
+          )}
         </div>
 
         <div>
@@ -188,7 +235,11 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-inp"
             placeholder="Enter Papers Alloted"
           />
-          {errors.paper_allocated && <span className="text-red-500 text-sm">{errors.paper_allocated}</span>}
+          {errors.paper_allocated && (
+            <span className="text-red-500 text-sm">
+              {errors.paper_allocated}
+            </span>
+          )}
         </div>
 
         <div>
@@ -200,7 +251,9 @@ export default function BECallocating({ goToStepper = () => {}, exitStepper = ()
             className="input-class-drop"
             placeholder="Select BCE ID"
           />
-          {errors.bce_id && <span className="text-red-500 text-sm">{errors.bce_id}</span>}
+          {errors.bce_id && (
+            <span className="text-red-500 text-sm">{errors.bce_id}</span>
+          )}
         </div>
       </div>
 

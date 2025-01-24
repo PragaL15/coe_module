@@ -8,6 +8,7 @@ import StatusPage from "./pages/Faculty/StatusTable"
 import BoardHome from "./pages/BoardChairman/Home";
 import BoardApproval from './pages/BoardChairman/approval_page'
 import BoardAllocate from './pages/BoardChairman/alloacate'
+import DisplayAllocation from './pages/Faculty/allocationPage'
 const RoutesComponent = () => {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ const RoutesComponent = () => {
         <Route path="/BoardHome" element={<BoardHome />} />
         <Route path="/BoardApproval" element={<BoardApproval />} />
         <Route path="/BoardAllocation" element={<BoardAllocate />} />
+        <Route path="/DisplayAllocation" element={<DisplayAllocation />} />
         
       </Routes>
     </BrowserRouter>
