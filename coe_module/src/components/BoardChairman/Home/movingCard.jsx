@@ -11,28 +11,24 @@ export default function MovingCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch data from faculty_get_approve API
         const facultyGetApproveResponse = await fetch("http://localhost:4000/api/FacultyGetApprove");
         if (!facultyGetApproveResponse.ok) {
           throw new Error(`Failed to fetch faculty get approve data: ${facultyGetApproveResponse.statusText}`);
         }
         const facultyGetApproveData = await facultyGetApproveResponse.json();
 
-        // Fetch data from faculty API
         const facultyResponse = await fetch("http://localhost:4000/api/faculty");
         if (!facultyResponse.ok) {
           throw new Error(`Failed to fetch faculty data: ${facultyResponse.statusText}`);
         }
         const facultyData = await facultyResponse.json();
 
-        // Fetch data from course API
         const courseResponse = await fetch("http://localhost:4000/api/courseOption");
         if (!courseResponse.ok) {
           throw new Error(`Failed to fetch course data: ${courseResponse.statusText}`);
         }
         const courseData = await courseResponse.json();
 
-        // Join faculty_get_approve data with faculty and course data based on IDs
         const combinedData = facultyGetApproveData.map((request) => {
           const faculty = facultyData.find((f) => f.faculty_id === request.faculty_id);
           const course = courseData.find((c) => c.course_id === request.course_id);
@@ -75,11 +71,11 @@ export default function MovingCard() {
   const getSeverity = (product) => {
     switch (product.approval_status) {  
       case 1:
-        return 'success';  // Approved (Green)
+        return 'success';  
       case -1:
-        return 'danger';   // Rejected (Red)
+        return 'danger';  
       case 0:
-        return 'warning';  // Initiated (Default/Orange)
+        return 'warning';  
       default:
         return null;
     }

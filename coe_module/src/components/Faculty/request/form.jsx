@@ -3,7 +3,10 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 
-export default function PatientForm({ goToStepper = () => {}, exitStepper = () => {} }) {
+export default function PatientForm({
+  goToStepper = () => {},
+  exitStepper = () => {},
+}) {
   const [faculty_id, setFaculty_id] = useState("");
   const [courseCode, setCourseCode] = useState();
   const [semesterCode, setSemesterCode] = useState("");
@@ -22,11 +25,36 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    fetchData("http://localhost:4000/api/faculty", setFacultyOptions, "faculty_id", "faculty_id");
-    fetchData("http://localhost:4000/api/courseOption", setCourseOptions, "course_code", "course_id");
-    fetchData("http://localhost:4000/api/semOption", setSemesterOptions, "sem_code", "sem_code");
-    fetchData("http://localhost:4000/api/deptOption", setDepartmentOptions, "dept_name", "dept_name");
-    fetchData("http://localhost:4000/api/academicOption", setAcademicOptions, "academic_year", "academic_year");
+    fetchData(
+      "http://localhost:4000/api/faculty",
+      setFacultyOptions,
+      "faculty_id",
+      "faculty_id"
+    );
+    fetchData(
+      "http://localhost:4000/api/courseOption",
+      setCourseOptions,
+      "course_code",
+      "course_id"
+    );
+    fetchData(
+      "http://localhost:4000/api/semOption",
+      setSemesterOptions,
+      "sem_code",
+      "sem_code"
+    );
+    fetchData(
+      "http://localhost:4000/api/deptOption",
+      setDepartmentOptions,
+      "dept_name",
+      "dept_name"
+    );
+    fetchData(
+      "http://localhost:4000/api/academicOption",
+      setAcademicOptions,
+      "academic_year",
+      "academic_year"
+    );
   }, []);
 
   const fetchData = async (url, setOptions, labelKey, valueKey) => {
@@ -67,10 +95,10 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
     const formData = {
       faculty_id,
       papers_left,
-      course_id: courseCode, // Send course_id
+      course_id: courseCode,
       remarks: reason,
-      approval_status: 0, // Default to 0
-      status: 0, // Default to 0
+      approval_status: 0,
+      status: 0,
       sem_code: semesterCode,
       sem_academic_year: academicYear,
       year: department,
@@ -78,13 +106,16 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
     };
 
     try {
-      const response = await fetch("http://localhost:4000/api/FacultyRequestSubmit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/FacultyRequestSubmit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to submit form data");
       const result = await response.json();
@@ -100,7 +131,6 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
     <div className="w-full p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Add Academic Details</h1>
       <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
-        {/* Faculty ID */}
         <div>
           <label className="label-class">Faculty ID:</label>
           <Dropdown
@@ -115,12 +145,11 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
           )}
         </div>
 
-        {/* Course Code */}
         <div>
           <label className="label-class">Course Code:</label>
           <Dropdown
-            value={courseCode} // Stores course_id
-            options={courseOptions} // Options with course_code as label and course_id as value
+            value={courseCode}
+            options={courseOptions}
             onChange={(e) => setCourseCode(e.value)}
             className="input-class-drop"
             placeholder="Select Course Code"
@@ -130,7 +159,6 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
           )}
         </div>
 
-        {/* Semester Code */}
         <div>
           <label className="label-class">Semester Code:</label>
           <Dropdown
@@ -145,7 +173,6 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
           )}
         </div>
 
-        {/* Academic Year */}
         <div>
           <label className="label-class">Academic Year:</label>
           <Dropdown
@@ -160,7 +187,6 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
           )}
         </div>
 
-        {/* Department */}
         <div>
           <label className="label-class">Department:</label>
           <Dropdown
@@ -175,7 +201,6 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
           )}
         </div>
 
-        {/* Deadline */}
         <div>
           <label className="label-class">Deadline:</label>
           <InputText
@@ -189,22 +214,20 @@ export default function PatientForm({ goToStepper = () => {}, exitStepper = () =
           )}
         </div>
 
-        {/* Pending Number of Papers */}
         <div>
           <label className="label-class">Pending Number of Papers:</label>
           <InputText
-  value={papers_left}
-  onChange={(e) => setPendingPapers(parseInt(e.target.value, 10))}
-  className="input-class-inp"
-  placeholder="Enter Pending Papers"
-/>
+            value={papers_left}
+            onChange={(e) => setPendingPapers(parseInt(e.target.value, 10))}
+            className="input-class-inp"
+            placeholder="Enter Pending Papers"
+          />
 
           {errors.papers_left && (
             <span className="text-red-500 text-sm">{errors.papers_left}</span>
           )}
         </div>
 
-        {/* Reason */}
         <div>
           <label className="label-class">Reason:</label>
           <InputText

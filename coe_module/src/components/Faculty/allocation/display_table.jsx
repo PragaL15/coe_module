@@ -7,7 +7,6 @@ export default function FacultyRecordsTable() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch data from API
   useEffect(() => {
     const fetchRecords = async () => {
       try {
@@ -23,7 +22,6 @@ export default function FacultyRecordsTable() {
     fetchRecords();
   }, []);
 
-  // Status badge template
   const statusBodyTemplate = (rowData) => {
     const getClassName = (status) => {
       switch (status) {
@@ -42,19 +40,16 @@ export default function FacultyRecordsTable() {
     );
   };
 
-  // Get the date after 40 days from the deadline
   const getDayAfter40Days = (deadline) => {
     const deadlineDate = new Date(deadline);
-    deadlineDate.setDate(deadlineDate.getDate() + 40); // Add 40 days to the deadline
-    return deadlineDate.toLocaleDateString(); // Return in the default date format
+    deadlineDate.setDate(deadlineDate.getDate()); 
+    return deadlineDate.toLocaleDateString(); 
   };
 
-  // Custom header template for deadline
   const deadlineHeaderTemplate = () => {
     return "Deadline (in days)";
   };
 
-  // Custom header for paper allocated column
   const paperAllocatedHeaderTemplate = () => {
     return "Papers Allocated";
   };

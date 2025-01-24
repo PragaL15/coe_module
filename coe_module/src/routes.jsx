@@ -13,15 +13,17 @@ const RoutesComponent = () => {
   return (
     <BrowserRouter>
       <Routes>
-    
+        {/* Faculty routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/FacHome" element={<Home />} />
         <Route path="/FacRequest" element={<RequestForm />} />
         <Route path="/FacRequestStatus" element={<StatusPage />} />
+        <Route path="/DisplayAllocation" element={<DisplayAllocation />} />
+        {/* Board allocation */}
         <Route path="/BoardHome" element={<BoardHome />} />
         <Route path="/BoardApproval" element={<BoardApproval />} />
         <Route path="/BoardAllocation" element={<BoardAllocate />} />
-        <Route path="/DisplayAllocation" element={<DisplayAllocation />} />
+        
         
       </Routes>
     </BrowserRouter>

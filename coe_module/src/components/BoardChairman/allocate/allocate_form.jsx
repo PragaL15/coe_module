@@ -105,12 +105,12 @@ export default function BECallocating({
       paper_allocated,
       course_id: courseCode,
       sem_code: sem_code,
-      dept_id, // Updated field
+      dept_id, 
       bce_id,
       deadline: parseInt(deadline, 10),
     };
 
-    console.log(formData); // Debugging step
+    console.log(formData); 
 
     try {
       const response = await fetch("http://localhost:4000/api/BoardApproval", {
