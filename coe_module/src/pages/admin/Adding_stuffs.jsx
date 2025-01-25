@@ -1,6 +1,9 @@
 import CourseAdd from '../../components/admin/course_add';
 import AcademicAdd from '../../components/admin/academic_add'
 import SemesterAdd from '../../components/admin/semester_add'
+import DepartmentAdd from '../../components/admin/dept_add'
+import BCEAdd from '../../components/admin/bce_add'
+import FacultyAdd from '../../components/admin/faculty_add'
 import React from 'react';
 import Sidebar from '../../components/sideBar';
 const AdminAccess = () => {
@@ -12,6 +15,9 @@ const AdminAccess = () => {
   <CourseAdd/>
   <AcademicAdd/>
   <SemesterAdd/>
+  <DepartmentAdd/>
+  <BCEAdd/>
+  <FacultyAdd/>
   </div>
   </div>
 </div>

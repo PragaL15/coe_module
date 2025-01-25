@@ -47,7 +47,7 @@ export default function SemesterAdd({
 
     const formData = {
       sem_code: semesterCode,
-      academic_year: academicYear,
+      sem_academic_year: academicYear, // Updated key for academic year
     };
 
     try {
@@ -91,6 +91,7 @@ export default function SemesterAdd({
             <span className="text-red-500 text-sm">{errors.semesterCode}</span>
           )}
         </div>
+        {/* Academic Year */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Academic Year:
