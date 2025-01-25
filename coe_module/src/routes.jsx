@@ -9,6 +9,7 @@ import BoardHome from "./pages/BoardChairman/Home";
 import BoardApproval from './pages/BoardChairman/approval_page'
 import BoardAllocate from './pages/BoardChairman/alloacate'
 import DisplayAllocation from './pages/Faculty/allocationPage'
+import AdminAccess from './pages/admin/Adding_stuffs'
 const RoutesComponent = () => {
   return (
     <BrowserRouter>
@@ -23,6 +24,8 @@ const RoutesComponent = () => {
         <Route path="/BoardHome" element={<BoardHome />} />
         <Route path="/BoardApproval" element={<BoardApproval />} />
         <Route path="/BoardAllocation" element={<BoardAllocate />} />
+        {/* Admin routes */}
+        <Route path="/AdminAccess" element={<AdminAccess />} />
         
         
       </Routes>
