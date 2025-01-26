@@ -11,18 +11,16 @@ import BCEAdd from '../../components/admin/bce_add';
 import FacultyAdd from '../../components/admin/faculty_add';
 
 const AdminAccess = () => {
-  const [activeComponent, setActiveComponent] = useState(null); // Track which component is active
+  const [activeComponent, setActiveComponent] = useState(null); 
 
-  // Handlers to set the active component
   const handleEdit = (componentName) => {
     setActiveComponent(componentName);
   };
 
   const handleBack = () => {
-    setActiveComponent(null); // Go back to the card view
+    setActiveComponent(null); 
   };
 
-  // Render the respective component based on activeComponent
   const renderActiveComponent = () => {
     switch (activeComponent) {
       case 'CourseAdd':
@@ -39,90 +37,114 @@ const AdminAccess = () => {
         return <FacultyAdd />;
       default:
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10">
             <Card
-              title="Course Management"
-              className="shadow-lg"
+               header={
+                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                  Course Management
+                </div>
+              }
+              className="shadow-lg text-sm"
               footer={
                 <Button
                   label="Edit"
                   icon="pi pi-pencil"
                   onClick={() => handleEdit('CourseAdd')}
-                  className="p-button-sm p-button-primary"
+                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
                 />
               }
             >
-              Manage course-related data.
+              Add the courses to the list.
             </Card>
             <Card
-              title="Academic Management"
-              className="shadow-lg"
+               header={
+                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                  Academic Details
+                </div>
+              }
+              className="shadow-lg text-sm"
               footer={
                 <Button
                   label="Edit"
                   icon="pi pi-pencil"
                   onClick={() => handleEdit('AcademicAdd')}
-                  className="p-button-sm p-button-primary"
+                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
                 />
               }
             >
-              Manage academic details.
+              Add the Academic year to the list.
             </Card>
             <Card
-              title="Semester Management"
-              className="shadow-lg"
+               header={
+                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                  Semester Adding
+                </div>
+              }
+              className="shadow-lg text-sm"
               footer={
                 <Button
                   label="Edit"
                   icon="pi pi-pencil"
                   onClick={() => handleEdit('SemesterAdd')}
-                  className="p-button-sm p-button-primary"
+                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
                 />
               }
             >
-              Manage semester information.
+               Add the semester code to the list.
             </Card>
             <Card
-              title="Department Management"
-              className="shadow-lg"
+               header={
+                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                  Department Allotment
+                </div>
+              }
+              className="shadow-lg  text-sm"
               footer={
                 <Button
                   label="Edit"
                   icon="pi pi-pencil"
                   onClick={() => handleEdit('DepartmentAdd')}
-                  className="p-button-sm p-button-primary"
+                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
                 />
               }
             >
-              Manage department-related data.
+              Add the Department Name to the list.
             </Card>
             <Card
-              title="BCE Management"
-              className="shadow-lg"
+               header={
+                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                  Board chairman Allotment
+                </div>
+              }
+              className="shadow-lg text-sm"
               footer={
                 <Button
                   label="Edit"
                   icon="pi pi-pencil"
                   onClick={() => handleEdit('BCEAdd')}
-                  className="p-button-sm p-button-primary"
+                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
                 />
               }
             >
-              Manage BCE information.
+                Add the Board Chairman details to the list.
             </Card>
             <Card
-              title="Faculty Management"
-              className="shadow-lg"
+               header={
+                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                  Faculty Adding
+                </div>
+              }
+              className="shadow-lg text-sm"
               footer={
                 <Button
                   label="Edit"
                   icon="pi pi-pencil"
                   onClick={() => handleEdit('FacultyAdd')}
-                  className="p-button-sm p-button-primary"
+                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
                 />
               }
             >
-              Manage faculty-related data.
+             Add the Faculty details to the list.
             </Card>
           </div>
         );
@@ -131,12 +153,9 @@ const AdminAccess = () => {
 
   return (
     <div className="flex">
-      {/* Sidebar */}
       <Sidebar />
 
-      {/* Main Content Area */}
       <div className="ml-64 flex-1 p-4">
-        {/* Back Button for components */}
         {activeComponent && (
           <Button
             label="Back"
@@ -145,8 +164,6 @@ const AdminAccess = () => {
             onClick={handleBack}
           />
         )}
-
-        {/* Render Cards or Active Component */}
         {renderActiveComponent()}
       </div>
     </div>
