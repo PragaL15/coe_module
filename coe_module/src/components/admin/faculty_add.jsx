@@ -5,13 +5,12 @@ import { Button } from "primereact/button";
 
 export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () => {} }) {
   const [facultyName, setFacultyName] = useState("");
-  const [dept, setDept] = useState(null);  // Change deptId to dept to match backend
+  const [dept, setDept] = useState(null); 
   const [mobileNum, setMobileNum] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
   const [departments, setDepartments] = useState([]);
 
-  // Fetch departments data for dropdown
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
@@ -25,10 +24,9 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
         const data = await response.json();
         console.log("DeptOption Data:", data);
 
-        // Format department data for the Dropdown component
         const formattedDepartments = data.map((dept) => ({
-          label: dept.dept_name, // Display name in dropdown
-          value: dept.id,        // Value to be stored on form submission
+          label: dept.dept_name,
+          value: dept.id,      
         }));
         setDepartments(formattedDepartments);
       } catch (error) {
@@ -40,12 +38,10 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
     fetchDepartments();
   }, []);
 
-  // Handle form submission
   const handleSubmit = async () => {
     console.log("Form data:", { facultyName, dept, mobileNum, email });
     const newErrors = {};
 
-    // Validate form fields
     if (!facultyName) newErrors.facultyName = "Faculty Name is required";
     if (!dept) newErrors.dept = "Department selection is required";  // Match 'dept'
     if (!mobileNum) newErrors.mobileNum = "Mobile number is required";
@@ -55,14 +51,14 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
 
     if (Object.keys(newErrors).length > 0) {
       console.log("Validation errors:", newErrors);
-      return; // Exit if validation fails
+      return;
     }
 
     const formData = {
-      faculty_name: facultyName,  // Correct field name
-      dept: dept,  // Correct field name
-      mobile_num: mobileNum,      // Correct field name
-      email: email,               // Correct field name
+      faculty_name: facultyName,  
+      dept: dept,  
+      mobile_num: mobileNum,      
+      email: email,               
     };
 
     try {
@@ -91,7 +87,6 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
     <div className="w-full p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Add Faculty Details</h1>
       <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
-        {/* Faculty Name Input */}
         <div>
           <label className="label-class">Faculty Name:</label>
           <InputText
@@ -105,13 +100,12 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
           )}
         </div>
 
-        {/* Department Dropdown */}
         <div>
           <label className="label-class">Department:</label>
           <Dropdown
             value={dept}
             options={departments}
-            onChange={(e) => setDept(e.value)} // Store dept.id on change
+            onChange={(e) => setDept(e.value)} 
             className="input-class-drop"
             placeholder="Select Department"
           />
@@ -119,8 +113,6 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
             <span className="text-red-500 text-sm">{errors.dept}</span>
           )}
         </div>
-
-        {/* Mobile Number Input */}
         <div>
           <label className="label-class">Mobile Number:</label>
           <InputText
