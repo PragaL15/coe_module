@@ -94,13 +94,13 @@ export default function BCEAdd({ goToStepper = () => {}, exitStepper = () => {} 
     <div className="w-full p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Add BCE Details</h1>
       <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
-        {/* Department Dropdown */}
+      
         <div>
           <label className="label-class">Department:</label>
           <Dropdown
             value={deptId}
             options={departments}
-            onChange={(e) => setDeptId(e.value)}  // Set deptId based on selected option
+            onChange={(e) => setDeptId(e.value)}  
             className="input-class-drop"
             placeholder="Select Department"
           />
@@ -109,7 +109,6 @@ export default function BCEAdd({ goToStepper = () => {}, exitStepper = () => {} 
           )}
         </div>
 
-        {/* BCE ID Input */}
         <div>
           <label className="label-class">Board chairman ID:</label>
           <InputText
@@ -122,8 +121,6 @@ export default function BCEAdd({ goToStepper = () => {}, exitStepper = () => {} 
             <span className="text-red-500 text-sm">{errors.bceId}</span>
           )}
         </div>
-
-        {/* BCE Name Input */}
         <div>
           <label className="label-class">BCE Name:</label>
           <InputText
@@ -137,7 +134,6 @@ export default function BCEAdd({ goToStepper = () => {}, exitStepper = () => {} 
           )}
         </div>
 
-        {/* Email Input */}
         <div>
           <label className="label-class">Email:</label>
           <InputText
@@ -151,7 +147,6 @@ export default function BCEAdd({ goToStepper = () => {}, exitStepper = () => {} 
           )}
         </div>
 
-        {/* Mobile Number Input */}
         <div>
           <label className="label-class">Mobile number:</label>
           <InputText

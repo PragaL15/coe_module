@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Custom Tailwind class for reduced padding in DataTable */
 .small-padding-table .p-datatable-tbody > tr > td,
 .small-padding-table .p-datatable-thead > tr > th {
     @apply p-2.5;

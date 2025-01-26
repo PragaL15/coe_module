@@ -12,7 +12,6 @@ export default function SemesterAdd({
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [errors, setErrors] = useState({});
 
-  // Fetch options for academic years
   useEffect(() => {
     fetchData(
       "http://localhost:4000/api/academicOption",
@@ -28,8 +27,8 @@ export default function SemesterAdd({
       if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
       const data = await response.json();
       const options = data.map((item) => ({
-        label: item[labelKey], // Display text in the dropdown
-        value: item[valueKey], // Value to store when selected
+        label: item[labelKey], 
+        value: item[valueKey], 
       }));
       setOptions(options);
     } catch (error) {
@@ -47,7 +46,7 @@ export default function SemesterAdd({
 
     const formData = {
       sem_code: semesterCode,
-      sem_academic_year: academicYear, // Updated key for academic year
+      sem_academic_year: academicYear, 
     };
 
     try {
@@ -63,7 +62,6 @@ export default function SemesterAdd({
       alert("Form submitted successfully!");
       console.log("Form Submitted", result);
 
-      // Clear form fields after successful submission
       setSemesterCode("");
       setAcademicYear("");
     } catch (error) {
@@ -76,7 +74,6 @@ export default function SemesterAdd({
     <div className="w-full p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Add Semester Details</h1>
       <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
-        {/* Semester Code */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Semester Code:
@@ -91,7 +88,6 @@ export default function SemesterAdd({
             <span className="text-red-500 text-sm">{errors.semesterCode}</span>
           )}
         </div>
-        {/* Academic Year */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Academic Year:

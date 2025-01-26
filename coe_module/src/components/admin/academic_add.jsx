@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Dropdown } from "primereact/dropdown";
+import React, { useState } from "react";
+import { Card } from "primereact/card"; 
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 
-export default function academicAdd({
+export default function AcademicAdd({
   goToStepper = () => {},
   exitStepper = () => {},
 }) {
@@ -43,27 +43,30 @@ export default function academicAdd({
   };
 
   return (
-    <div className="w-full p-6 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-6">Add Academic Year Details</h1>
-      <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
-        <div>
-          <label className="label-class">Academic Year:</label>
-          <InputText
-            value={academicYear}
-            onChange={(e) => setAcademicYear(e.target.value)}
-            className="input-class-inp"
-            placeholder="Enter Academic Year (e.g., 2025-2026)"
-          />
-          {errors.academicYear && (
-            <span className="text-red-500 text-sm">{errors.academicYear}</span>
-          )}
+
+    <div className="w-full p-6 rounded-md">
+      <Card className="p-4 border bg-slate rounded-lg shadow-lg">
+        <h1 className="text-xl font-bold mb-6">Add Academic Year Details</h1>
+        <div className="grid grid-cols-1 gap-3">
+          <div>
+            <label className="block mb-4 text-md font-medium text-gray-700">Academic Year:</label>
+            <InputText
+              value={academicYear}
+              onChange={(e) => setAcademicYear(e.target.value)}
+              className="w-full p-2 border rounded-md"
+              placeholder="Enter Academic Year (e.g., 2025-2026)"
+            />
+            {errors.academicYear && (
+              <span className="text-red-500 text-sm">{errors.academicYear}</span>
+            )}
+          </div>
         </div>
-      </div>
-      <Button
-        label="Submit"
-        onClick={handleSubmit}
-        className="bg-blue-500 text-white px-4 py-2 mt-4 mb-4 rounded-md hover:bg-blue-600 w-24"
-      />
+        <Button
+          label="Submit"
+          onClick={handleSubmit}
+          className="bg-blue-500 text-white px-4 py-2 mt-4 rounded-md hover:bg-blue-600 w-24"
+        />
+      </Card>
     </div>
   );
 }
