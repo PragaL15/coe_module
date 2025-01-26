@@ -10,6 +10,7 @@ import BoardApproval from './pages/BoardChairman/approval_page'
 import BoardAllocate from './pages/BoardChairman/alloacate'
 import DisplayAllocation from './pages/Faculty/allocationPage'
 import AdminAccess from './pages/admin/Adding_stuffs'
+import DailyUpdates from './pages/Faculty/DailyPage'
 const RoutesComponent = () => {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ const RoutesComponent = () => {
         <Route path="/FacRequest" element={<RequestForm />} />
         <Route path="/FacRequestStatus" element={<StatusPage />} />
         <Route path="/DisplayAllocation" element={<DisplayAllocation />} />
+        <Route path="/DailyUpdates" element={<DailyUpdates />} />
         {/* Board allocation */}
         <Route path="/BoardHome" element={<BoardHome />} />
         <Route path="/BoardApproval" element={<BoardApproval />} />

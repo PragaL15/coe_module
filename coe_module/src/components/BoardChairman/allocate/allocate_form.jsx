@@ -11,7 +11,7 @@ export default function BECallocating({
   const [courseCode, setCourseCode] = useState("");
   const [sem_code, setSem_code] = useState("");
   const [academicYear, setAcademicYear] = useState("");
-  const [dept_id, setDept_id] = useState(""); // Updated field name
+  const [dept_id, setDept_id] = useState(""); 
   const [paper_allocated, setPaper_allocated] = useState(0);
   const [deadline, setDeadline] = useState(0);
   const [bce_id, setBce_id] = useState("");
@@ -86,7 +86,7 @@ export default function BECallocating({
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!sem_code) newErrors.sem_code = "Semester code is required";
     if (!academicYear) newErrors.academicYear = "Academic year is required";
-    if (!dept_id) newErrors.dept_id = "Department is required"; // Updated field
+    if (!dept_id) newErrors.dept_id = "Department is required"; 
     if (!deadline || isNaN(deadline))
       newErrors.deadline = "Deadline is required";
     if (!bce_id) newErrors.bce_id = "BCE ID is required";
