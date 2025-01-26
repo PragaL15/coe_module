@@ -28,8 +28,8 @@ export default function courseAdd({
       if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
       const data = await response.json();
       const options = data.map((item) => ({
-        label: item[labelKey], // Display text in the dropdown
-        value: item[valueKey], // Value to store when selected
+        label: item[labelKey], 
+        value: item[valueKey], 
       }));
       setOptions(options);
     } catch (error) {
