@@ -100,7 +100,7 @@ export default function SemesterAdd({
             value={academicYear}
             options={semesterOptions}
             onChange={(e) => setAcademicYear(e.value)}
-            className="w-full"
+            className="input-class-drop"
             placeholder="Select Academic Year"
           />
           {errors.academicYear && (
@@ -109,11 +109,11 @@ export default function SemesterAdd({
         </div>
       </div>
       <div className="mt-6">
-        <Button
-          label="Submit"
-          onClick={handleSubmit}
-          className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-        />
+      <Button
+        label="Submit"
+        onClick={handleSubmit}
+        className="bg-blue-500 text-white px-4 py-2 mt-4 mb-4 rounded-md hover:bg-blue-600 w-24"
+      />
       </div>
     </div>
   );

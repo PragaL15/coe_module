@@ -155,12 +155,12 @@ const AdminAccess = () => {
     <div className="flex">
       <Sidebar />
 
-      <div className="ml-64 flex-1 p-4">
+      <div className="ml-56 flex-1 p-4">
         {activeComponent && (
           <Button
             label="Back"
             icon="pi pi-arrow-left"
-            className="mb-4"
+            className="mb-4 bg-blue-500 px-2 py-2 text-white"
             onClick={handleBack}
           />
         )}
