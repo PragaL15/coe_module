@@ -10,18 +10,18 @@ export default function BECallocating({
   const [faculty_id, setFaculty_id] = useState("");
   const [courseCode, setCourseCode] = useState("");
   const [sem_code, setSem_code] = useState("");
-  const [academicYear, setAcademicYear] = useState("");
-  const [dept_id, setDept_id] = useState(""); 
+  const [dept_id, setDept_id] = useState("");
   const [paper_allocated, setPaper_allocated] = useState(0);
   const [deadline, setDeadline] = useState(0);
+  const [paperid, setPaperid] = useState(0);
   const [bce_id, setBce_id] = useState("");
 
   const [facultyOptions, setFacultyOptions] = useState([]);
   const [courseOptions, setCourseOptions] = useState([]);
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [departmentOptions, setDepartmentOptions] = useState([]);
-  const [academicOptions, setAcademicOptions] = useState([]);
   const [bceOptions, setBceOptions] = useState([]);
+  const [paperIDOptions, setPaperIDOptions] = useState([]);
 
   const [errors, setErrors] = useState({});
 
@@ -64,18 +64,18 @@ export default function BECallocating({
       setDepartmentOptions,
       "dept_name",
       "id"
-    ); // Updated field
-    fetchData(
-      "http://localhost:4000/api/academicOption",
-      setAcademicOptions,
-      "academic_year",
-      "academic_year"
     );
     fetchData(
       "http://localhost:4000/api/bceOption",
       setBceOptions,
       "bce_id",
       "bce_id"
+    );
+    fetchData(
+      "http://localhost:4000/api/paperIDoption",
+      setPaperIDOptions,
+      "paper_id",
+      "paper_id"
     );
   }, []);
 
@@ -85,11 +85,11 @@ export default function BECallocating({
     if (!faculty_id) newErrors.faculty_id = "Faculty ID is required";
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!sem_code) newErrors.sem_code = "Semester code is required";
-    if (!academicYear) newErrors.academicYear = "Academic year is required";
-    if (!dept_id) newErrors.dept_id = "Department is required"; 
+    if (!dept_id) newErrors.dept_id = "Department is required";
     if (!deadline || isNaN(deadline))
       newErrors.deadline = "Deadline is required";
     if (!bce_id) newErrors.bce_id = "BCE ID is required";
+    if (!paperid) newErrors.paperid = "Paper ID is required";
     if (!paper_allocated || isNaN(paper_allocated))
       newErrors.paper_allocated = "Papers Allotted must be a number";
 
@@ -105,12 +105,13 @@ export default function BECallocating({
       paper_allocated,
       course_id: courseCode,
       sem_code: sem_code,
-      dept_id, 
+      dept_id,
       bce_id,
+      paperid,
       deadline: parseInt(deadline, 10),
     };
 
-    console.log(formData); 
+    console.log(formData);
 
     try {
       const response = await fetch("http://localhost:4000/api/BoardApproval", {
@@ -133,6 +134,7 @@ export default function BECallocating({
       setDeadline(0);
       setPaper_allocated(0);
       setBce_id("");
+      setPaperid(0);
       goToStepper();
     } catch (error) {
       console.error("Error submitting form data:", error);
@@ -183,20 +185,6 @@ export default function BECallocating({
           />
           {errors.sem_code && (
             <span className="text-red-500 text-sm">{errors.sem_code}</span>
-          )}
-        </div>
-
-        <div>
-          <label className="label-class">Academic Year:</label>
-          <Dropdown
-            value={academicYear}
-            options={academicOptions}
-            onChange={(e) => setAcademicYear(e.value)}
-            className="input-class-drop"
-            placeholder="Select Academic Year"
-          />
-          {errors.academicYear && (
-            <span className="text-red-500 text-sm">{errors.academicYear}</span>
           )}
         </div>
 
@@ -253,6 +241,19 @@ export default function BECallocating({
           />
           {errors.bce_id && (
             <span className="text-red-500 text-sm">{errors.bce_id}</span>
+          )}
+        </div>
+        <div>
+          <label className="label-class">Paper ID:</label>
+          <Dropdown
+            value={paperid}
+            options={paperIDOptions}
+            onChange={(e) => setPaperid(e.value)}
+            className="input-class-drop"
+            placeholder="Select Paper ID"
+          />
+          {errors.paperid && (
+            <span className="text-red-500 text-sm">{errors.paperid}</span>
           )}
         </div>
       </div>

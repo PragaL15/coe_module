@@ -12,14 +12,14 @@ export default function PatientForm({
   const [semesterCode, setSemesterCode] = useState("");
   const [department, setDepartment] = useState("");
   const [papers_left, setPapersLeft] = useState(0);
-  const [reason, setReason] = useState(""); // Reason is now a string for text input
+  const [reason, setReason] = useState(""); 
 
   const [facultyOptions, setFacultyOptions] = useState([]);
   const [courseOptions, setCourseOptions] = useState([]);
   const [pendingPapersOptions, setPendingPapersOptions] = useState([]);
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [departmentOptions, setDepartmentOptions] = useState([]);
-  const [facultyData, setFacultyData] = useState([]); // Store all rows from FacultyRecordsDisplay
+  const [facultyData, setFacultyData] = useState([]); 
 
   const [errors, setErrors] = useState({});
 
@@ -32,7 +32,7 @@ export default function PatientForm({
       setFacultyData
     );
     fetchData(
-      "http://localhost:4000/api/semesterOption",
+      "http://localhost:4000/api/semOption",
       setSemesterOptions,
       "sem_code",
       "sem_code"
