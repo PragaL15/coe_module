@@ -1,44 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { Dropdown } from "primereact/dropdown";
-import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
+import { InputText } from "primereact/inputtext";
 
 export default function PatientForm({
   goToStepper = () => {},
   exitStepper = () => {},
 }) {
   const [faculty_id, setFaculty_id] = useState("");
-  const [courseCode, setCourseCode] = useState();
+  const [courseCode, setCourseCode] = useState("");
   const [semesterCode, setSemesterCode] = useState("");
-  const [academicYear, setAcademicYear] = useState("");
   const [department, setDepartment] = useState("");
-  const [deadline, setDeadline] = useState();
-  const [papers_left, setPendingPapers] = useState(0);
-  const [reason, setReason] = useState("");
+  const [papers_left, setPapersLeft] = useState(0);
+  const [reason, setReason] = useState(""); // Reason is now a string for text input
 
   const [facultyOptions, setFacultyOptions] = useState([]);
   const [courseOptions, setCourseOptions] = useState([]);
+  const [pendingPapersOptions, setPendingPapersOptions] = useState([]);
   const [semesterOptions, setSemesterOptions] = useState([]);
   const [departmentOptions, setDepartmentOptions] = useState([]);
-  const [academicOptions, setAcademicOptions] = useState([]);
+  const [facultyData, setFacultyData] = useState([]); // Store all rows from FacultyRecordsDisplay
 
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchData(
-      "http://localhost:4000/api/faculty",
+      "http://localhost:4000/api/FacultyRecordsDisplay",
       setFacultyOptions,
       "faculty_id",
-      "faculty_id"
+      "faculty_id",
+      setFacultyData
     );
     fetchData(
-      "http://localhost:4000/api/courseOption",
-      setCourseOptions,
-      "course_code",
-      "course_id"
-    );
-    fetchData(
-      "http://localhost:4000/api/semOption",
+      "http://localhost:4000/api/semesterOption",
       setSemesterOptions,
       "sem_code",
       "sem_code"
@@ -49,28 +43,106 @@ export default function PatientForm({
       "dept_name",
       "dept_name"
     );
-    fetchData(
-      "http://localhost:4000/api/academicOption",
-      setAcademicOptions,
-      "academic_year",
-      "academic_year"
-    );
+    
+    fetchCourses();
   }, []);
 
-  const fetchData = async (url, setOptions, labelKey, valueKey) => {
+  const fetchData = async (url, setOptions, labelKey, valueKey, setData) => {
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
       const data = await response.json();
       const options = data.map((item) => ({
-        label: item[labelKey], // Display text in the dropdown
-        value: item[valueKey], // Value to store when selected
+        label: item[labelKey],
+        value: item[valueKey],
       }));
       setOptions(options);
+
+      if (setData) setData(data); // Store the full data if setData is provided
     } catch (error) {
       console.error(`Error fetching data from ${url}:`, error);
     }
   };
+
+  const fetchCourses = async () => {
+    try {
+      const facultyResponse = await fetch(
+        "http://localhost:4000/api/FacultyRecordsDisplay"
+      );
+      if (!facultyResponse.ok)
+        throw new Error("Failed to fetch course data from FacultyRecordsDisplay");
+
+      const facultyData = await facultyResponse.json();
+      const courseIds = facultyData.map((item) => item.course_id);
+
+      const courseResponse = await fetch(
+        "http://localhost:4000/api/courseOption"
+      );
+      if (!courseResponse.ok)
+        throw new Error("Failed to fetch data from courseOption");
+
+      const courseData = await courseResponse.json();
+
+      const courseMap = courseData.reduce((acc, item) => {
+        acc[item.course_id] = item.course_name;
+        return acc;
+      }, {});
+
+      const options = courseIds.map((id) => ({
+        label: courseMap[id] || `Unknown Course (${id})`,
+        value: id,
+      }));
+
+      setCourseOptions(options);
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
+
+  const handleFacultyOrCourseChange = () => {
+    if (faculty_id && courseCode) {
+      const filteredRows = facultyData.filter(
+        (row) =>
+          row.faculty_id === faculty_id &&
+          row.course_id === courseCode
+      );
+
+      const semesterSet = new Set();
+      const departmentSet = new Set();
+      const paperPendingSet = new Set();
+
+      filteredRows.forEach((row) => {
+        semesterSet.add(row.sem_code);
+        departmentSet.add(row.dept_id);
+        paperPendingSet.add(row.paper_pending);
+      });
+
+      const semesterOptions = Array.from(semesterSet).map((sem_code) => ({
+        label: sem_code,
+        value: sem_code,
+      }));
+
+      const departmentOptions = Array.from(departmentSet).map((dept_id) => ({
+        label: dept_id,
+        value: dept_id,
+      }));
+
+      const pendingPapersOptions = Array.from(paperPendingSet).map(
+        (paper_pending) => ({
+          label: paper_pending,
+          value: paper_pending,
+        })
+      );
+
+      setSemesterOptions(semesterOptions);
+      setDepartmentOptions(departmentOptions);
+      setPendingPapersOptions(pendingPapersOptions); 
+    }
+  };
+
+  useEffect(() => {
+    handleFacultyOrCourseChange();
+  }, [faculty_id, courseCode]);
 
   const handleSubmit = async () => {
     const newErrors = {};
@@ -78,12 +150,10 @@ export default function PatientForm({
     if (!faculty_id) newErrors.faculty_id = "Faculty ID is required";
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!semesterCode) newErrors.semesterCode = "Semester code is required";
-    if (!academicYear) newErrors.academicYear = "Academic year is required";
     if (!department) newErrors.department = "Department is required";
-    if (!deadline) newErrors.deadline = "Deadline is required";
     if (!papers_left || parseInt(papers_left) < 0)
       newErrors.papers_left = "Valid number of pending papers is required";
-    if (!reason) newErrors.reason = "Reason is required";
+    if (!reason) newErrors.reason = "Reason is required";  
 
     setErrors(newErrors);
 
@@ -100,9 +170,6 @@ export default function PatientForm({
       approval_status: 0,
       status: 0,
       sem_code: semesterCode,
-      sem_academic_year: academicYear,
-      year: department,
-      deadline_left: parseInt(deadline, 10),
     };
 
     try {
@@ -126,10 +193,9 @@ export default function PatientForm({
       alert("An error occurred while submitting the form. Please try again.");
     }
   };
-
   return (
     <div className="w-full p-6 bg-gray-100">
-      <h1 className="text-2xl font-bold mb-6">Add Academic Details</h1>
+      <h1 className="text-2xl font-bold mb-6">request Details</h1>
       <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
         <div>
           <label className="label-class">Faculty ID:</label>
@@ -146,13 +212,13 @@ export default function PatientForm({
         </div>
 
         <div>
-          <label className="label-class">Course Code:</label>
+          <label className="label-class">Course Name:</label>
           <Dropdown
             value={courseCode}
             options={courseOptions}
             onChange={(e) => setCourseCode(e.value)}
             className="input-class-drop"
-            placeholder="Select Course Code"
+            placeholder="Select Course"
           />
           {errors.courseCode && (
             <span className="text-red-500 text-sm">{errors.courseCode}</span>
@@ -166,24 +232,10 @@ export default function PatientForm({
             options={semesterOptions}
             onChange={(e) => setSemesterCode(e.value)}
             className="input-class-drop"
-            placeholder="Select Semester Code"
+            placeholder="Select Semester"
           />
           {errors.semesterCode && (
             <span className="text-red-500 text-sm">{errors.semesterCode}</span>
-          )}
-        </div>
-
-        <div>
-          <label className="label-class">Academic Year:</label>
-          <Dropdown
-            value={academicYear}
-            options={academicOptions}
-            onChange={(e) => setAcademicYear(e.value)}
-            className="input-class-drop"
-            placeholder="Select Academic Year"
-          />
-          {errors.academicYear && (
-            <span className="text-red-500 text-sm">{errors.academicYear}</span>
           )}
         </div>
 
@@ -202,39 +254,25 @@ export default function PatientForm({
         </div>
 
         <div>
-          <label className="label-class">Deadline:</label>
-          <InputText
-            value={deadline}
-            onChange={(e) => setDeadline(e.target.value)}
-            className="input-class-inp"
-            placeholder="Enter Deadline"
-          />
-          {errors.deadline && (
-            <span className="text-red-500 text-sm">{errors.deadline}</span>
-          )}
-        </div>
-
-        <div>
-          <label className="label-class">Pending Number of Papers:</label>
-          <InputText
+          <label className="label-class">Papers Pending:</label>
+          <Dropdown
             value={papers_left}
-            onChange={(e) => setPendingPapers(parseInt(e.target.value, 10))}
-            className="input-class-inp"
-            placeholder="Enter Pending Papers"
+            options={pendingPapersOptions}
+            onChange={(e) => setPapersLeft(e.value)}
+            className="input-class-drop"
+            placeholder="Select Pending Papers"
           />
-
           {errors.papers_left && (
             <span className="text-red-500 text-sm">{errors.papers_left}</span>
           )}
         </div>
-
         <div>
           <label className="label-class">Reason:</label>
           <InputText
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             className="input-class-inp"
-            placeholder="Enter Reason"
+            placeholder="Enter the reason"
           />
           {errors.reason && (
             <span className="text-red-500 text-sm">{errors.reason}</span>
