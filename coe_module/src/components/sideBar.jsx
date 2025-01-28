@@ -26,7 +26,6 @@ const Sidebar = () => {
         { label: 'Daily Updates', icon: 'pi pi-file-edit', route: '/DailyUpdates', allowedUserIds: [1] },
         { label: 'Request', icon: 'pi pi-chart-line', route: '/FacRequest', allowedUserIds: [1] },
         { label: 'Approval status', icon: 'pi pi-file-check', route: '/FacRequestStatus', allowedUserIds: [1] },
-       
         { label: 'Logout', icon: 'pi pi-sign-out', route: '/logout', allowedUserIds: [1] },
     ];
 
