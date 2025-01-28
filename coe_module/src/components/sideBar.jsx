@@ -34,7 +34,7 @@ const Sidebar = () => {
         const currentRoute = location.pathname;
         const active = items.find(item => item.route === currentRoute);
         if (active) {
-            setActiveItem(active.label); // Set the active item based on the current route.
+            setActiveItem(active.label); 
         }
     }, [location.pathname, items]);
 
