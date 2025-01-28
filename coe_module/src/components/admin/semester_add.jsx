@@ -73,7 +73,7 @@ export default function SemesterAdd({
   return (
     <div className="w-full p-6 bg-gray-100">
       <h1 className="text-2xl font-bold mb-6">Add Semester Details</h1>
-      <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
+      <div className="grid md:grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Semester Code:

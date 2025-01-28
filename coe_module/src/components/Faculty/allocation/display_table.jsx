@@ -5,28 +5,17 @@ import axios from 'axios';
 
 export default function FacultyRecordsTable() {
   const [records, setRecords] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRecords = async () => {
+    const fetchData = async () => {
       try {
-        const token = document.cookie
-          .split('; ')
-          .find((row) => row.startsWith('auth_token='))
-          ?.split('=')[1];
+        const recordsResponse = await axios.get('http://localhost:4000/api/FacultyRecordsDisplay');
+        setRecords(recordsResponse.data);
 
-        if (!token) {
-          console.error('Authorization token not found');
-          return;
-        }
-
-        const response = await axios.get('http://localhost:4000/api/FacultyRecordsDisplay', {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-          },
-        });
-
-        setRecords(response.data);
+        const coursesResponse = await axios.get('http://localhost:4000/api/courseOption');
+        setCourses(coursesResponse.data);
       } catch (error) {
         if (error.response) {
           console.error('Backend responded with an error:', error.response.data);
@@ -40,8 +29,12 @@ export default function FacultyRecordsTable() {
       }
     };
 
-    fetchRecords();
+    fetchData();
   }, []);
+  const getCourseName = (courseId) => {
+    const course = courses.find(course => course.course_id === courseId);
+    return course ? course.course_name : 'Course Not Found';
+  };
 
   const statusBodyTemplate = (rowData) => {
     const getClassName = (status) => {
@@ -73,12 +66,11 @@ export default function FacultyRecordsTable() {
         responsiveLayout="scroll"
       >
         <Column field="faculty_id" header="Faculty ID" className="border border-gray-300 text-sm" />
-        <Column field="course_name" header="Course Name" className="border border-gray-300 text-sm" />
+        <Column field="course_id" header="Course Name" body={(rowData) => getCourseName(rowData.course_id)} className="border border-gray-300 text-sm" />
         <Column body={(rowData) => `${rowData.paper_allocated} papers`} header="Papers Allocated" className="border border-gray-300 text-sm" />
         <Column body={(rowData) => `${rowData.deadline} days`} header="Deadline (in days)" className="border border-gray-300 text-sm" />
         <Column field="bce_id" header="BCE ID" className="border border-gray-300 text-sm" />
         <Column field="sem_code" header="Semester Code" className="border border-gray-300 text-sm" />
-        <Column field="dept_name" header="Department Name" className="border border-gray-300 text-sm" />
         <Column body={statusBodyTemplate} header="Status" className="border border-gray-300 text-sm" />
       </DataTable>
     </div>

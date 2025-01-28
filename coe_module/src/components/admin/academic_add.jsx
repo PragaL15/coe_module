@@ -44,7 +44,7 @@ export default function AcademicAdd({
 
   return (
 
-    <div className="w-full p-6 rounded-md">
+    <div className="md:w-full p-6 rounded-md">
       <Card className="p-4 border bg-slate rounded-lg shadow-lg">
         <h1 className="text-xl font-bold mb-6">Add Academic Year Details</h1>
         <div className="grid grid-cols-1 gap-3">

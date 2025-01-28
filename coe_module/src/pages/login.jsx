@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../pages/AuthContex"; 
+
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +17,7 @@ const LoginPage = () => {
     setError("");
   };
 
-  // Handle login
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -29,18 +30,16 @@ const LoginPage = () => {
           password: password,
         },
         {
-          withCredentials: true, // Sends cookies to the server
+          withCredentials: true, 
         }
       );
 
       if (response.status === 200) {
-        const { token } = response.data; // Assuming server responds with { token }
-        setAuthToken(token); // Save the token in the context
-        navigate("/AdminAccess"); // Navigate to the dashboard
+        navigate("/AdminAccess"); 
       }
     } catch (err) {
       if (err.response && err.response.data.error) {
-        setError(err.response.data.error); // Show server-side error
+        setError(err.response.data.error); 
       } else {
         setError("Something went wrong. Please try again.");
       }

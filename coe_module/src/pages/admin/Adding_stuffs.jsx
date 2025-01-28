@@ -37,7 +37,7 @@ const AdminAccess = () => {
         return <FacultyAdd />;
       default:
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10 md:ml-0 -ml-16">
             <Card
                header={
                 <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
@@ -155,7 +155,7 @@ const AdminAccess = () => {
     <div className="flex">
       <Sidebar />
 
-      <div className="ml-56 flex-1 p-4">
+      <div className="md:ml-56 ml-10 md:mt-0 mt-5 flex-1 p-4">
         {activeComponent && (
           <Button
             label="Back"
