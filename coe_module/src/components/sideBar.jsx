@@ -28,7 +28,6 @@ const Sidebar = () => {
         { label: 'Approval status', icon: 'pi pi-file-check', route: '/FacRequestStatus', allowedUserIds: [1] },
         { label: 'Logout', icon: 'pi pi-sign-out', route: '/logout', allowedUserIds: [1] },
     ];
-
     const items = allItems.filter(item => item.allowedUserIds.includes(Number(userId)));
 
     useEffect(() => {
