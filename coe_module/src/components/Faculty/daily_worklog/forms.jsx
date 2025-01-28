@@ -47,7 +47,6 @@ export default function DailyWorklogUpdate() {
       if (!paperResponse.ok) throw new Error("Failed to fetch paper data");
       const paperData = await paperResponse.json();
 
-      // Extract paper options for the dropdown
       const paperOptions = paperData.map((item) => ({
         label: item.paper_id, 
         value: item.id, 
@@ -89,8 +88,8 @@ export default function DailyWorklogUpdate() {
     // Validation for required fields
     if (!faculty_id) newErrors.faculty_id = "Faculty ID is required";
     if (!paper_id) newErrors.paper_id = "Paper ID is required";
-    if (!paper_corrected_today || isNaN(paper_corrected_today))
-      newErrors.paper_corrected_today = "Number of papers corrected today is required";
+    if (!paper_corrected_today) newErrors.paper_corrected_today = "paper corrected is required"
+     if(paper_corrected_today>26) newErrors.paper_corrected_today =alert("Number of papers per day must be less than 26");
     if (!remarks) newErrors.remarks = "Remarks are required";
 
     setErrors(newErrors);

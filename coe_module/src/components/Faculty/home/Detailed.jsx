@@ -9,7 +9,6 @@ export default function DetailedData() {
     const [rows] = useState(2); // Fixed rows per page to 3
 
     const columns = [
-        { field: 'year', header: 'Year' },
         { field: 'semesterCode', header: 'Semester Code' },
         { field: 'courseCode', header: 'Course Code' },
         { field: 'noOfPapers', header: 'No. of Papers' },
@@ -18,12 +17,12 @@ export default function DetailedData() {
     ];
 
     const dummyData = [
-        { year: 2022, semesterCode: 'S1', courseCode: 'CS101', noOfPapers: 10, deadline: '2022-12-30', garduate: 'UG' },
-        { year: 2022, semesterCode: 'S2', courseCode: 'CS102', noOfPapers: 15, deadline: '2023-03-15', garduate: 'PG' },
-        { year: 2023, semesterCode: 'S1', courseCode: 'CS201', noOfPapers: 20, deadline: '2023-06-20', garduate: 'UG' },
-        { year: 2023, semesterCode: 'S2', courseCode: 'CS202', noOfPapers: 25, deadline: '2023-09-10', garduate: 'PG' },
-        { year: 2024, semesterCode: 'S1', courseCode: 'CS301', noOfPapers: 30, deadline: '2024-01-05', garduate: 'UG' },
-        { year: 2024, semesterCode: 'S2', courseCode: 'CS302', noOfPapers: 35, deadline: '2024-03-10', garduate: 'PG' }
+        {  semesterCode: 'SEM103', courseCode: 'CS101', noOfPapers: 10, deadline: '5', garduate: 'UG' },
+        {  semesterCode: 'SEM103', courseCode: 'CS102', noOfPapers: 15, deadline: '6', garduate: 'PG' },
+        {  semesterCode: 'SEM103', courseCode: 'CS201', noOfPapers: 20, deadline: '7', garduate: 'UG' },
+        {  semesterCode: 'SEM203', courseCode: 'CS202', noOfPapers: 25, deadline: '9', garduate: 'PG' },
+        {  semesterCode: 'SEM203', courseCode: 'CS301', noOfPapers: 30, deadline: '9', garduate: 'UG' },
+        {  semesterCode: 'SEM203', courseCode: 'CS302', noOfPapers: 35, deadline: '20', garduate: 'PG' }
     ];
 
     const onPageChange = (event) => {

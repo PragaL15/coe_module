@@ -153,7 +153,7 @@ export default function BECallocating({
             value={faculty_id}
             options={facultyOptions}
             onChange={(e) => setFaculty_id(e.value)}
-            className="input-class-drop"
+            className="input-class-drop border-slate-400"
             placeholder="Select Faculty"
           />
           {errors.faculty_id && (
@@ -167,7 +167,7 @@ export default function BECallocating({
             value={courseCode}
             options={courseOptions}
             onChange={(e) => setCourseCode(e.value)}
-            className="input-class-drop"
+            className="input-class-drop border-slate-400"
             placeholder="Select Course Code"
           />
           {errors.courseCode && (
@@ -181,7 +181,7 @@ export default function BECallocating({
             value={sem_code}
             options={semesterOptions}
             onChange={(e) => setSem_code(e.value)}
-            className="input-class-drop"
+            className="input-class-drop border-slate-400"
             placeholder="Select Semester Code"
           />
           {errors.sem_code && (
@@ -195,7 +195,7 @@ export default function BECallocating({
             value={dept_id}
             options={departmentOptions}
             onChange={(e) => setDept_id(e.value)}
-            className="input-class-drop"
+            className="input-class-drop border-slate-400"
             placeholder="Select Department"
           />
           {errors.dept_id && (
@@ -235,7 +235,7 @@ export default function BECallocating({
             value={bce_id}
             options={bceOptions}
             onChange={(e) => setBce_id(e.value)}
-            className="input-class-drop"
+            className="input-class-drop border-slate-400"
             placeholder="Select BCE ID"
           />
           {errors.bce_id && (
@@ -249,7 +249,7 @@ export default function BECallocating({
             value={paperid}
             options={paperIDOptions}
             onChange={(e) => setPaperid(e.value)}
-            className="input-class-drop"
+            className="input-class-drop border-slate-400"
             placeholder="Select Paper ID"
           />
           {errors.paperid && (

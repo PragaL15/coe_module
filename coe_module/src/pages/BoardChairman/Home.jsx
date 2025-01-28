@@ -8,15 +8,15 @@ const BoardHome = () => {
     <div className='flex'>
       <Sidebar/>
       <div className='inline w-full'>
-      <div className='w-4/5'>
+      <div className='w-4/5 mt-12'>
       <MovingCard/>
       </div>
-      <div className='flex'>
+      {/* <div className='flex'>
         <div className='w-4/5'>
       <BoardTable/>
       </div>
       <TopBottomCorner/>
-      </div>
+      </div> */}
       </div>
     </div>
   );

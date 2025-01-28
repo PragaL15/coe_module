@@ -9,7 +9,7 @@ export default function ApprovalStatus({ currentProduct }) {
       dateSubmitted: '2025-01-15',
       papers: 12,
       deadline: '2025-01-25',
-      facultyName: 'Alice',
+      facultyName: 'Dr.R.Gomathi',
       courseCode: 'ENG101',
       semesterCode: 'CS103',
       reason: 'Research dev Review',

@@ -61,7 +61,7 @@ export default function ViewRecord({ data, visible, onHide }) {
         label="Accept"
         icon="pi pi-check"
         onClick={() => handleApproval(1)}
-        className="bg-green-500 hover:bg-green-600 text-white p-2 mr-2 text-sm rounded"
+        className="bg-green-500 hover:bg-green-600 text-white p-1  md:text-sm text-xs rounded w-28"
       />
       <Button
         label="Decline"
@@ -90,7 +90,7 @@ export default function ViewRecord({ data, visible, onHide }) {
         footer={footerContent}
         onHide={onHide}
       >
-        <div>
+        <div className="w-4/5">
           <p className="mt-4 ">
             <strong>Faculty Name:</strong> {data.faculty_name}
           </p>
