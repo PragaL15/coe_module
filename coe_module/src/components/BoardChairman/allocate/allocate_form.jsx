@@ -25,14 +25,15 @@ export default function BECallocating({
 
   const [errors, setErrors] = useState({});
 
+  // Fetch data for dropdowns
   const fetchData = async (url, setOptions, labelKey, valueKey) => {
     try {
       const response = await fetch(url);
       if (!response.ok) throw new Error(`Failed to fetch data from ${url}`);
       const data = await response.json();
       const options = data.map((item) => ({
-        label: item[labelKey],
-        value: item[valueKey],
+        label: item[labelKey],  // Display faculty_name or other labels
+        value: item[valueKey],  // Corresponding ID for selection
       }));
       setOptions(options);
     } catch (error) {
@@ -41,11 +42,12 @@ export default function BECallocating({
   };
 
   useEffect(() => {
+    // Fetch dropdown data
     fetchData(
-      "http://localhost:4000/api/faculty",
+      "http://localhost:4000/api/faculty", // Fetch faculty data from your API
       setFacultyOptions,
-      "faculty_id",
-      "faculty_id"
+      "faculty_name",  // Display faculty_name in dropdown
+      "faculty_id"     // Use faculty_id as value
     );
     fetchData(
       "http://localhost:4000/api/courseOption",
@@ -82,16 +84,15 @@ export default function BECallocating({
   const handleSubmit = async () => {
     const newErrors = {};
 
+    // Validate fields
     if (!faculty_id) newErrors.faculty_id = "Faculty ID is required";
     if (!courseCode) newErrors.courseCode = "Course code is required";
     if (!sem_code) newErrors.sem_code = "Semester code is required";
     if (!dept_id) newErrors.dept_id = "Department is required";
-    if (!deadline || isNaN(deadline))
-      newErrors.deadline = "Deadline is required";
+    if (!deadline || isNaN(deadline)) newErrors.deadline = "Deadline is required";
     if (!bce_id) newErrors.bce_id = "BCE ID is required";
     if (!paperid) newErrors.paperid = "Paper ID is required";
-    if (!paper_allocated || isNaN(paper_allocated))
-      newErrors.paper_allocated = "Papers Allotted must be a number";
+    if (!paper_allocated || isNaN(paper_allocated)) newErrors.paper_allocated = "Papers Allotted must be a number";
 
     setErrors(newErrors);
 
@@ -144,16 +145,16 @@ export default function BECallocating({
 
   return (
     <div className="md:w-full p-6 bg-gray-100 md:ml-64">
-      <h1 className="text-2xl font-bold mb-6">Allocate Faculties:</h1>
+      <h1 className="text-2xl font-bold mt-6 mb-6">Allocate Faculties:</h1>
       <div className="grid md:grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
         <div>
-          <label className="label-class">Faculty ID:</label>
+          <label className="label-class">Faculty:</label>
           <Dropdown
             value={faculty_id}
             options={facultyOptions}
             onChange={(e) => setFaculty_id(e.value)}
             className="input-class-drop"
-            placeholder="Select Faculty ID"
+            placeholder="Select Faculty"
           />
           {errors.faculty_id && (
             <span className="text-red-500 text-sm">{errors.faculty_id}</span>
@@ -216,17 +217,15 @@ export default function BECallocating({
         </div>
 
         <div>
-          <label className="label-class">Papers Alloted:</label>
+          <label className="label-class">Papers Allocated:</label>
           <InputText
             value={paper_allocated}
             onChange={(e) => setPaper_allocated(parseInt(e.target.value, 10))}
             className="input-class-inp"
-            placeholder="Enter Papers Alloted"
+            placeholder="Enter Papers Allocated"
           />
           {errors.paper_allocated && (
-            <span className="text-red-500 text-sm">
-              {errors.paper_allocated}
-            </span>
+            <span className="text-red-500 text-sm">{errors.paper_allocated}</span>
           )}
         </div>
 
@@ -243,6 +242,7 @@ export default function BECallocating({
             <span className="text-red-500 text-sm">{errors.bce_id}</span>
           )}
         </div>
+
         <div>
           <label className="label-class">Paper ID:</label>
           <Dropdown

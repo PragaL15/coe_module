@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-import { InputTextarea } from "primereact/inputtextarea";
+import { InputText } from "primereact/inputtext";
 
 export default function ViewRecord({ data, visible, onHide }) {
   const [approvalStatus, setApprovalStatus] = useState(0);
@@ -67,13 +67,7 @@ export default function ViewRecord({ data, visible, onHide }) {
         label="Decline"
         icon="pi pi-times"
         onClick={() => handleApproval(-1)}
-        className="bg-red-500 hover:bg-red-600 text-white p-2 mr-2 text-sm rounded"
-      />
-      <Button
-        label="Close"
-        icon="pi pi-times"
-        onClick={onHide}
-        className="bg-gray-200 hover:bg-gray-300 text-black p-2 text-sm rounded"
+        className="bg-red-500 hover:bg-red-600 text-white p-2 ml-4 text-sm rounded"
       />
     </div>
   );
@@ -83,13 +77,7 @@ export default function ViewRecord({ data, visible, onHide }) {
         label="Submit"
         icon="pi pi-check"
         onClick={confirmDecline}
-        className="bg-blue-500 hover:bg-blue-600 text-white p-2 mr-2 text-sm rounded"
-      />
-      <Button
-        label="Cancel"
-        icon="pi pi-times"
-        onClick={() => setShowReasonDialog(false)}
-        className="bg-gray-200 hover:bg-gray-300 text-black p-2 text-sm rounded"
+        className="bg-blue-500 text-white p-2 mr-2 text-sm rounded"
       />
     </div>
   );
@@ -103,26 +91,23 @@ export default function ViewRecord({ data, visible, onHide }) {
         onHide={onHide}
       >
         <div>
-          <p>
+          <p className="mt-4 ">
             <strong>Faculty Name:</strong> {data.faculty_name}
           </p>
-          <p>
+          <p className="mt-4 ">
             <strong>Papers Left:</strong> {data.papers_left}
           </p>
-          <p>
+          <p className="mt-4 ">
             <strong>Course ID:</strong> {data.course_code}
           </p>
-          <p>
+          <p className="mt-4 ">
             <strong>Remarks:</strong> {data.remarks}
           </p>
-          <p>
+          <p className="mt-4 ">
             <strong>Deadline Left:</strong> {data.deadline_left}
           </p>
-          <p>
+          <p className="mt-4 ">
             <strong>Semester Code:</strong> {data.sem_code}
-          </p>
-          <p>
-            <strong>Academic Year:</strong> {data.sem_academic_year}
           </p>
         </div>
       </Dialog>
@@ -134,15 +119,15 @@ export default function ViewRecord({ data, visible, onHide }) {
         onHide={() => setShowReasonDialog(false)}
       >
         <div>
-          <label htmlFor="reason" className="block text-sm font-medium mb-2">
+          <label htmlFor="reason" className="block text-sm mb-1">
             Please provide a reason for declining:
           </label>
-          <InputTextarea
+          <InputText
             id="reason"
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             rows={3}
-            className="w-full p-inputtext-sm"
+            className="input-class-inp"
             placeholder="Enter your reason here..."
           />
         </div>

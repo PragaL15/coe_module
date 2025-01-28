@@ -37,7 +37,7 @@ const AdminAccess = () => {
         return <FacultyAdd />;
       default:
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10 md:ml-0 -ml-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10 md:ml-0 -ml-11">
             <Card
                header={
                 <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">

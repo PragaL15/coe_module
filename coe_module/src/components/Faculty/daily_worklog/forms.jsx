@@ -5,46 +5,83 @@ import { Button } from "primereact/button";
 
 export default function DailyWorklogUpdate() {
   const [faculty_id, setFaculty_id] = useState("");
-  const [faculty_name, setFaculty_name] = useState("");
-  const [paper_id, setPaper_id] = useState(""); 
+  const [faculty_name, setFaculty_name] = useState(""); // Store faculty name
+  const [paper_id, setPaper_id] = useState("");
   const [paper_corrected_today, setPaperCorrectedToday] = useState(0);
   const [remarks, setRemarks] = useState("");
-  const [createdAt, setCreatedAt] = useState(new Date().toISOString()); // For storing current timestamp
+  const [createdAt, setCreatedAt] = useState(new Date().toISOString());
 
   const [facultyOptions, setFacultyOptions] = useState([]);
-  const [paperOptions, setPaperOptions] = useState([]); // Updated for paper options
+  const [paperOptions, setPaperOptions] = useState([]);
 
   const [errors, setErrors] = useState({});
 
-  // Fetch Faculty and Paper data
+  // Fetch Faculty data from /api/FacultyRecordsDisplay and /api/faculty
   const fetchFacultyAndPaperData = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/FacultyRecordsDisplay");
-      if (!response.ok) throw new Error("Failed to fetch faculty and paper data");
-      const data = await response.json();
+      // Fetch faculty data from /api/FacultyRecordsDisplay
+      const facultyResponse = await fetch("http://localhost:4000/api/FacultyRecordsDisplay");
+      if (!facultyResponse.ok) throw new Error("Failed to fetch faculty data");
+      const facultyData = await facultyResponse.json();
 
-      // Extract faculty options
-      const facultyOptions = data.map((item) => ({
-        label: `${item.faculty_id} - ${item.faculty_name}`, 
-        value: item.faculty_id,
-      }));
+      // Fetch faculty data from /api/faculty for names
+      const facultyNameResponse = await fetch("http://localhost:4000/api/faculty");
+      if (!facultyNameResponse.ok) throw new Error("Failed to fetch faculty names");
+      const facultyNameData = await facultyNameResponse.json();
 
-      // Extract paper options
-      const paperOptions = data.map((item) => ({
-        label: item.paper_id, 
-        value: item.paper_id,
-      }));
+      // Map faculty records to create faculty options with names
+      const facultyOptions = facultyData.map((item) => {
+        // Find the corresponding faculty name from /api/faculty
+        const faculty = facultyNameData.find((facultyItem) => facultyItem.faculty_id === item.faculty_id);
+        return {
+          label: `${item.faculty_id} - ${faculty ? faculty.faculty_name : 'Unknown'}`,
+          value: item.faculty_id,
+          name: faculty ? faculty.faculty_name : 'Unknown', // Store faculty name as well
+        };
+      });
 
       setFacultyOptions(facultyOptions);
+
+      // Fetch paper data from the /api/paperIDoption endpoint
+      const paperResponse = await fetch("http://localhost:4000/api/paperIDoption");
+      if (!paperResponse.ok) throw new Error("Failed to fetch paper data");
+      const paperData = await paperResponse.json();
+
+      // Extract paper options for the dropdown
+      const paperOptions = paperData.map((item) => ({
+        label: item.paper_id, 
+        value: item.paper_id, 
+      }));
+
       setPaperOptions(paperOptions);
     } catch (error) {
       console.error("Error fetching faculty and paper data:", error);
     }
   };
 
+  // Fetch faculty name when a faculty is selected
+  const fetchFacultyName = async (facultyId) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/faculty/${facultyId}`);
+      if (!response.ok) throw new Error("Failed to fetch faculty name");
+      const data = await response.json();
+      setFaculty_name(data.faculty_name);
+    } catch (error) {
+      console.error("Error fetching faculty name:", error);
+    }
+  };
+
+  // Run fetchFacultyAndPaperData on initial render
   useEffect(() => {
-    fetchFacultyAndPaperData(); // Fetch both faculty and paper data on mount
+    fetchFacultyAndPaperData(); 
   }, []);
+
+  // Handle faculty selection
+  useEffect(() => {
+    if (faculty_id) {
+      fetchFacultyName(faculty_id); // Fetch the faculty name when faculty_id changes
+    }
+  }, [faculty_id]);
 
   const handleSubmit = async () => {
     const newErrors = {};
@@ -86,6 +123,7 @@ export default function DailyWorklogUpdate() {
 
       alert("Daily worklog updated successfully!");
       setFaculty_id("");
+      setFaculty_name(""); // Reset faculty name after submission
       setPaper_id("");
       setPaperCorrectedToday(0);
       setRemarks("");
@@ -97,9 +135,9 @@ export default function DailyWorklogUpdate() {
   };
 
   return (
-    <div className="w-full p-6 bg-gray-100 ml-64">
+    <div className="md:w-4/5 p-2 bg-gray-100 md:ml-14 ">
       <h1 className="text-2xl font-bold mb-6">Daily Faculty Worklog Update</h1>
-      <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
+      <div className="grid md:grid-cols-2 gap-4 bg-white p-6 border rounded-lg shadow-lg">
         <div>
           <label className="label-class">Faculty:</label>
           <Dropdown
@@ -112,6 +150,9 @@ export default function DailyWorklogUpdate() {
           {errors.faculty_id && (
             <span className="text-red-500 text-sm">{errors.faculty_id}</span>
           )}
+          {faculty_name && (
+            <div className="mt-2 text-gray-600">Faculty Name: {faculty_name}</div>
+          )}
         </div>
 
         <div>
@@ -119,7 +160,7 @@ export default function DailyWorklogUpdate() {
           <Dropdown
             value={paper_id}
             options={paperOptions}
-            onChange={(e) => setPaper_id(e.value)} // Removed the fetch for faculty data
+            onChange={(e) => setPaper_id(e.value)}
             className="input-class-drop"
             placeholder="Select Paper ID"
           />

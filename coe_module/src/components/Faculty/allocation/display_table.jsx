@@ -36,26 +36,9 @@ export default function FacultyRecordsTable() {
     return course ? course.course_name : 'Course Not Found';
   };
 
-  const statusBodyTemplate = (rowData) => {
-    const getClassName = (status) => {
-      switch (status) {
-        case 1:
-          return 'bg-green-500 text-white';
-        case 0:
-          return 'bg-red-500 text-white';
-        default:
-          return 'bg-gray-500 text-white';
-      }
-    };
-    return (
-      <span className={`px-3 py-1 rounded ${getClassName(rowData.status)}`}>
-        {rowData.status === 1 ? 'Approved' : rowData.status === 0 ? 'Rejected' : 'Pending'}
-      </span>
-    );
-  };
-
   return (
-    <div className="text-sm md:w-9/10 w-4/5 md:p-0 p-2 ml-14 mt-7 justify-center">
+    <div className="text-sm md:w-9/10 w-4/5 md:p-0 p-2 ml-8 mt-7 justify-center">
+      <h1 className="text-2xl font-bold mb-6">Details of Paper Listed</h1>
       <DataTable
         value={records}
         paginator
@@ -71,7 +54,6 @@ export default function FacultyRecordsTable() {
         <Column body={(rowData) => `${rowData.deadline} days`} header="Deadline (in days)" className="border border-gray-300 text-sm" />
         <Column field="bce_id" header="BCE ID" className="border border-gray-300 text-sm" />
         <Column field="sem_code" header="Semester Code" className="border border-gray-300 text-sm" />
-        <Column body={statusBodyTemplate} header="Status" className="border border-gray-300 text-sm" />
       </DataTable>
     </div>
   );
