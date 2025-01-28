@@ -6,7 +6,7 @@ const Status = () => {
   return (
     <div className='flex flex-col'>
       <Sidebar/>
-      <div className='ml-56 mt-5 '>
+      <div className='md:ml-56 ml-3 md:p-0 p-3 mt-5 '>
         <StatusTable/>
       </div>
     </div>

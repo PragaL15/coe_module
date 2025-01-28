@@ -87,7 +87,7 @@ export default function BasicDemo() {
     }, [sheetsData]);
 
     return (
-        <div className="w-full max-w-7xl">
+        <div className="md:w-full md:max-w-7xl w-3/6">
             <Chart
                 type="bar"
                 data={chartData}

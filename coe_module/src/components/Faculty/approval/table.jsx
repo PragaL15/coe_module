@@ -68,7 +68,7 @@ export default function ApprovalStatus({ currentProduct }) {
     : products;
 
   return (
-    <div className="text-sm w-4/5 ml-14 mt-7 justify-center">
+    <div className="text-sm md:w-4/5 md:ml-14 mt-7 justify-center">
       <DataTable
         value={filteredProducts}
         paginator

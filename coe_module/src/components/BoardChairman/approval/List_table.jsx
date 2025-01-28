@@ -3,6 +3,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import ViewRecord from "../approval/view";
+import { useAuth } from "../../../pages/AuthContex"; 
 
 export default function ListTables() {
   const [products, setProducts] = useState([]);
@@ -11,13 +12,28 @@ export default function ListTables() {
   const [showViewComponent, setShowViewComponent] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
 
+  const { authToken } = useAuth(); // Retrieve the token from AuthContext
+
   useEffect(() => {
     const fetchData = async () => {
+      if (!authToken) {
+        setError("Authorization token is missing. Please log in again.");
+        setLoading(false);
+        return;
+      }
+
       setLoading(true);
       setError(null);
+
       try {
+        const headers = {
+          Authorization: `Bearer ${authToken}`, // Add the token to headers
+        };
+
+        // Fetch faculty request data
         const facultyRequestResponse = await fetch(
-          "http://localhost:4000/api/FacultyGetApprove"
+          "http://localhost:4000/api/FacultyGetApprove",
+          { headers }
         );
         if (!facultyRequestResponse.ok) {
           throw new Error(
@@ -25,8 +41,11 @@ export default function ListTables() {
           );
         }
         const facultyRequestData = await facultyRequestResponse.json();
+
+        // Fetch faculty data
         const facultyResponse = await fetch(
-          "http://localhost:4000/api/faculty"
+          "http://localhost:4000/api/faculty",
+          { headers }
         );
         if (!facultyResponse.ok) {
           throw new Error(
@@ -34,6 +53,8 @@ export default function ListTables() {
           );
         }
         const facultyData = await facultyResponse.json();
+
+        // Combine faculty data with requests
         const combinedData = facultyRequestData.map((request) => {
           const faculty = facultyData.find(
             (f) => f.faculty_id === request.faculty_id
@@ -43,8 +64,11 @@ export default function ListTables() {
             faculty_name: faculty ? faculty.faculty_name : "N/A",
           };
         });
+
+        // Fetch course data
         const courseResponse = await fetch(
-          "http://localhost:4000/api/courseOption"
+          "http://localhost:4000/api/courseOption",
+          { headers }
         );
         if (!courseResponse.ok) {
           throw new Error(
@@ -52,6 +76,8 @@ export default function ListTables() {
           );
         }
         const courseData = await courseResponse.json();
+
+        // Combine course data with the existing data
         const finalCombinedData = combinedData.map((request) => {
           const course = courseData.find(
             (c) => c.course_id === request.course_id
@@ -71,7 +97,7 @@ export default function ListTables() {
     };
 
     fetchData();
-  }, []);
+  }, [authToken]); // Re-run the effect if the token changes
 
   const onViewClick = (rowData) => {
     setSelectedRowData(rowData);
@@ -82,6 +108,7 @@ export default function ListTables() {
     setShowViewComponent(false);
     setSelectedRowData(null);
   };
+
   const handleApprovalUpdate = (id, status, remark = "") => {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
@@ -95,12 +122,15 @@ export default function ListTables() {
       )
     );
   };
+
   if (loading) {
     return <div>Loading data...</div>;
   }
+
   if (error) {
     return <div>Error: {error}</div>;
   }
+
   return (
     <div className="card ml-72 mt-16">
       <DataTable

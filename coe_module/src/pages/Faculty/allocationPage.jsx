@@ -5,7 +5,7 @@ const DisplayAllocation = () => {
   return (
     <div className='flex flex-col'>
       <Sidebar/>
-      <div className='ml-56 mt-5 '>
+      <div className='md:ml-56 mt-5'>
         <FacultyRecordsTable/>
       </div>
     </div>

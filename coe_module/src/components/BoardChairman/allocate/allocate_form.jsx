@@ -143,9 +143,9 @@ export default function BECallocating({
   };
 
   return (
-    <div className="w-full p-6 bg-gray-100 ml-64">
+    <div className="md:w-full p-6 bg-gray-100 md:ml-64">
       <h1 className="text-2xl font-bold mb-6">Allocate Faculties:</h1>
-      <div className="grid grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
+      <div className="grid md:grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
         <div>
           <label className="label-class">Faculty ID:</label>
           <Dropdown

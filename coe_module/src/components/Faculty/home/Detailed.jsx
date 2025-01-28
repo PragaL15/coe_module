@@ -38,11 +38,11 @@ export default function DetailedData() {
     const paginatedProducts = products.slice(first, first + rows);
 
     return (
-        <div className="border-2 ml-8 rounded-md">
+        <div className="border-2 md:ml-8 ml-0 mt-4 rounded-md w-3/6 md:w-full">
             <DataTable 
                 value={paginatedProducts} 
                 tableStyle={{ minWidth: '40rem', fontSize: '13px' }} 
-                className="p-datatable-sm rounded-lg mt-6 ml-6"
+                className="p-datatable-sm rounded-lg"
             >
                 {columns.map((col) => (
                     <Column 

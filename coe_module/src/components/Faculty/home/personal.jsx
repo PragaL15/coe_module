@@ -20,8 +20,9 @@ export default function PersonalDetails() {
     };
 
     return (
+        <div className="md:w-full w-3/6">
         <Splitter>
-            <SplitterPanel className="flex flex-col p-4 text-md border-2 rounded-md">
+            <SplitterPanel className="md:flex md:flex-col p-4 text-md border-2 rounded-md">
                 <h3 className="text-lg font-bold mb-2 ">Faculty Details Summary</h3>
                 <div className="flex flex-col text-sm gap-y-3">
                 <p>
@@ -39,5 +40,6 @@ export default function PersonalDetails() {
                 </div>
             </SplitterPanel>
         </Splitter>
+        </div>
     );
 }

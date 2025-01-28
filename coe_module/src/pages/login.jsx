@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import axios for API calls
-
+import axios from "axios";
+import { useAuth } from "../pages/AuthContex"; 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -9,17 +9,14 @@ const LoginPage = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { setAuthToken } = useAuth(); 
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    setError(""); // Clear error when typing
+  const handleInputChange = (e, setter) => {
+    setter(e.target.value);
+    setError("");
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-    setError(""); // Clear error when typing
-  };
-
+  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -32,16 +29,18 @@ const LoginPage = () => {
           password: password,
         },
         {
-          withCredentials: true, 
+          withCredentials: true, // Sends cookies to the server
         }
       );
+
       if (response.status === 200) {
+        const { token } = response.data; // Assuming server responds with { token }
+        setAuthToken(token); // Save the token in the context
         navigate("/AdminAccess"); // Navigate to the dashboard
       }
     } catch (err) {
-      // Handle error cases
       if (err.response && err.response.data.error) {
-        setError(err.response.data.error);
+        setError(err.response.data.error); // Show server-side error
       } else {
         setError("Something went wrong. Please try again.");
       }
@@ -52,20 +51,21 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen justify-center items-center">
-      <div className="w-full max-w-md p-4 space-y-6 bg-slate-200 rounded-lg shadow-md">
+      <div className="w-full max-w-md p-6 space-y-6 bg-slate-200 rounded-lg shadow-md">
         <div className="flex justify-center mb-6">
-          <img src="/login.png" alt="Login" className="w-44 h-44" />
+          <img src="/login.png" alt="Login" className="w-36 h-36" />
         </div>
 
-        <h2 className="text-lg font-bold text-center">Login</h2>
+        <h2 className="text-xl font-bold text-center">Login</h2>
         {error && <p className="text-red-500 text-center">{error}</p>}
+
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="block text-sm font-medium">Username</label>
             <input
               type="text"
               value={username}
-              onChange={handleUsernameChange}
+              onChange={(e) => handleInputChange(e, setUsername)}
               className="input-class-inp w-full p-2 border rounded-md"
               placeholder="Enter your username"
               required
@@ -76,7 +76,7 @@ const LoginPage = () => {
             <input
               type="password"
               value={password}
-              onChange={handlePasswordChange}
+              onChange={(e) => handleInputChange(e, setPassword)}
               className="input-class-inp w-full p-2 border rounded-md"
               placeholder="Enter your password"
               required
