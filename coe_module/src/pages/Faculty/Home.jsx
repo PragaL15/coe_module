@@ -11,6 +11,7 @@ const Home = () => {
     <div className='flex'>
       <Sidebar/>
       <div className='md:inline'>
+      <h1 className='mt-4 ml-56 text-2xl font-bold'>Welcome Back👋🏽</h1>
         <div className='md:flex'>
           <div className='md:ml-56 mt-5'>
             <PersonalDetails/>
@@ -23,10 +24,10 @@ const Home = () => {
           </div> */}
         </div>
         <div className='md:flex inline'>
-        <div className='md:mt-7 md:ml-56'>
+        <div className='md:mt-4 md:ml-56'>
           <PreviousDetails />
         </div>
-        <div className='md:mt-4 ml-9'>
+        <div className='ml-9'>
           <DetailedData/>
         </div>
         </div>

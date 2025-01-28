@@ -50,7 +50,7 @@ export default function DailyWorklogUpdate() {
       // Extract paper options for the dropdown
       const paperOptions = paperData.map((item) => ({
         label: item.paper_id, 
-        value: item.paper_id, 
+        value: item.id, 
       }));
 
       setPaperOptions(paperOptions);
@@ -135,7 +135,7 @@ export default function DailyWorklogUpdate() {
   };
 
   return (
-    <div className="md:w-4/5 p-2 bg-gray-100 md:ml-14 ">
+    <div className="md:w-4/5 p-2 bg-gray-100 mt-11 md:ml-14 ">
       <h1 className="text-2xl font-bold mb-6">Daily Faculty Worklog Update</h1>
       <div className="grid md:grid-cols-2 gap-4 bg-white p-6 border rounded-lg shadow-lg">
         <div>

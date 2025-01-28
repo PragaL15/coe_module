@@ -26,7 +26,7 @@ export default function PreviousDetails() {
         <div className='w-3/6 md:w-full'>
         <Splitter>
             <SplitterPanel className="md:flex md:flex-col p-4  border-2 rounded-md md:w-full w-3/6">
-                <h3 className="text-lg font-bold mb-6 ">Previous Details Summary</h3>
+                <h3 className="text-lg font-bold mb-4 ">Previous Details Summary</h3>
                 <div className="flex flex-col gap-y-3 text-sm">
                     <p>
                         <strong>Total Days:</strong> {prevDetails.TotalSession || '21'}

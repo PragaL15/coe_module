@@ -37,122 +37,124 @@ const AdminAccess = () => {
         return <FacultyAdd />;
       default:
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10 md:ml-0 -ml-11">
-            <Card
-               header={
-                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
-                  Course Management
-                </div>
-              }
-              className="shadow-lg text-sm"
-              footer={
-                <Button
-                  label="Edit"
-                  icon="pi pi-pencil"
-                  onClick={() => handleEdit('CourseAdd')}
-                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
-                />
-              }
-            >
-              Add the courses to the list.
-            </Card>
-            <Card
-               header={
-                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
-                  Academic Details
-                </div>
-              }
-              className="shadow-lg text-sm"
-              footer={
-                <Button
-                  label="Edit"
-                  icon="pi pi-pencil"
-                  onClick={() => handleEdit('AcademicAdd')}
-                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
-                />
-              }
-            >
-              Add the Academic year to the list.
-            </Card>
-            <Card
-               header={
-                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
-                  Semester Adding
-                </div>
-              }
-              className="shadow-lg text-sm"
-              footer={
-                <Button
-                  label="Edit"
-                  icon="pi pi-pencil"
-                  onClick={() => handleEdit('SemesterAdd')}
-                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
-                />
-              }
-            >
-               Add the semester code to the list.
-            </Card>
-            <Card
-               header={
-                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
-                  Department Allotment
-                </div>
-              }
-              className="shadow-lg  text-sm"
-              footer={
-                <Button
-                  label="Edit"
-                  icon="pi pi-pencil"
-                  onClick={() => handleEdit('DepartmentAdd')}
-                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
-                />
-              }
-            >
-              Add the Department Name to the list.
-            </Card>
-            <Card
-               header={
-                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
-                  Board chairman Allotment
-                </div>
-              }
-              className="shadow-lg text-sm"
-              footer={
-                <Button
-                  label="Edit"
-                  icon="pi pi-pencil"
-                  onClick={() => handleEdit('BCEAdd')}
-                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
-                />
-              }
-            >
+          <div className="bg-slate-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-3 mt-10 md:ml-0 -ml-11">
+              <Card
+                header={
+                  <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                    Course Management
+                  </div>
+                }
+                className="shadow-lg text-sm"
+                footer={
+                  <Button
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit('CourseAdd')}
+                    className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
+                  />
+                }
+              >
+                Add the courses to the list.
+              </Card>
+              <Card
+                header={
+                  <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                    Academic Details
+                  </div>
+                }
+                className="shadow-lg text-sm"
+                footer={
+                  <Button
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit('AcademicAdd')}
+                    className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
+                  />
+                }
+              >
+                Add the Academic year to the list.
+              </Card>
+              <Card
+                header={
+                  <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                    Semester Adding
+                  </div>
+                }
+                className="shadow-lg text-sm"
+                footer={
+                  <Button
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit('SemesterAdd')}
+                    className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
+                  />
+                }
+              >
+                Add the semester code to the list.
+              </Card>
+              <Card
+                header={
+                  <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                    Department Allotment
+                  </div>
+                }
+                className="shadow-lg text-sm"
+                footer={
+                  <Button
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit('DepartmentAdd')}
+                    className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
+                  />
+                }
+              >
+                Add the Department Name to the list.
+              </Card>
+              <Card
+                header={
+                  <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                    Board chairman Allotment
+                  </div>
+                }
+                className="shadow-lg text-sm"
+                footer={
+                  <Button
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit('BCEAdd')}
+                    className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
+                  />
+                }
+              >
                 Add the Board Chairman details to the list.
-            </Card>
-            <Card
-               header={
-                <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
-                  Faculty Adding
-                </div>
-              }
-              className="shadow-lg text-sm"
-              footer={
-                <Button
-                  label="Edit"
-                  icon="pi pi-pencil"
-                  onClick={() => handleEdit('FacultyAdd')}
-                  className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
-                />
-              }
-            >
-             Add the Faculty details to the list.
-            </Card>
+              </Card>
+              <Card
+                header={
+                  <div className="text-xl justify-center ml-6 mt-5 font-bold text-blue-600">
+                    Faculty Adding
+                  </div>
+                }
+                className="shadow-lg text-sm"
+                footer={
+                  <Button
+                    label="Edit"
+                    icon="pi pi-pencil"
+                    onClick={() => handleEdit('FacultyAdd')}
+                    className="p-button-sm p-button-primary bg-slate-500 text-white p-2"
+                  />
+                }
+              >
+                Add the Faculty details to the list.
+              </Card>
+            </div>
           </div>
         );
     }
   };
 
   return (
-    <div className="flex">
+    <div className="bg-slate-200 min-h-screen flex">
       <Sidebar />
 
       <div className="md:ml-56 ml-10 md:mt-0 mt-5 flex-1 p-4">

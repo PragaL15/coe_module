@@ -6,7 +6,7 @@ import { Paginator } from 'primereact/paginator';
 export default function DetailedData() {
     const [products, setProducts] = useState([]);
     const [first, setFirst] = useState(0); // Start index for pagination
-    const [rows] = useState(3); // Fixed rows per page to 3
+    const [rows] = useState(2); // Fixed rows per page to 3
 
     const columns = [
         { field: 'year', header: 'Year' },
@@ -41,7 +41,7 @@ export default function DetailedData() {
         <div className="border-2 md:ml-8 ml-0 mt-4 rounded-md w-3/6 md:w-full">
             <DataTable 
                 value={paginatedProducts} 
-                tableStyle={{ minWidth: '40rem', fontSize: '13px' }} 
+                tableStyle={{ minWidth: '40rem', fontSize: '15px',marginTop:'9px' }} 
                 className="p-datatable-sm rounded-lg"
             >
                 {columns.map((col) => (
@@ -49,7 +49,7 @@ export default function DetailedData() {
                         key={col.field} 
                         field={col.field} 
                         header={col.header} 
-                        className="text-sm mt-1 p-3 ml-6 border-gray-300" 
+                        className="mt-1 p-3 ml-6 border-gray-300" 
                     />
                 ))}
             </DataTable>

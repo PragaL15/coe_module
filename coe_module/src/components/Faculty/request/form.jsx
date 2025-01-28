@@ -195,7 +195,7 @@ export default function PatientForm({
   };
   return (
     <div className="w-full p-6 bg-gray-100 overflow-y-visible">
-      <h1 className="text-2xl font-bold mb-6 ">request Details</h1>
+      <h1 className="text-2xl font-bold mb-6 ">Request Details</h1>
       <div className="grid md:grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg ">
         <div>
           <label className="label-class">Faculty ID:</label>

@@ -37,13 +37,13 @@ export default function FacultyRecordsTable() {
   };
 
   return (
-    <div className="text-sm md:w-9/10 w-4/5 md:p-0 p-2 ml-8 mt-7 justify-center">
+    <div className="text-sm md:w-9/10 w-4/5 md:p-0 p-2 ml-8 mt-11 justify-center">
       <h1 className="text-2xl font-bold mb-6">Details of Paper Listed</h1>
       <DataTable
         value={records}
         paginator
         paginatorClassName="text-xxs p-1"
-        rows={3}
+        rows={2}
         className="border border-gray-300 rounded-md"
         loading={loading}
         responsiveLayout="scroll"
