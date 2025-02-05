@@ -3,7 +3,7 @@ import React from 'react';
 import Sidebar from '../../components/sideBar';
 const BoardApproval = () => {
   return (
-    <div className='flex'>
+    <div className='flex bg-mild-bg'>
       <Sidebar/>
       <List_tables/>
     </div>

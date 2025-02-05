@@ -122,7 +122,7 @@ export default function ListTables() {
   }
 
   return (
-    <div className="card md:ml-60 w-4/5 ml-7 mt-16">
+    <div className="card md:ml-60 w-4/5 ml-7 mt-16 bg-mild-bg mb-72">
       <DataTable
         value={products}
         showGridlines

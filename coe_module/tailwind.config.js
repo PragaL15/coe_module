@@ -6,13 +6,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "side-bar": "#002D62",
+        "side-bar": "#404040",
         "theme-color": "#defaf3",
         "custom-blue": "#e3f2fd",
         "pale-blue": "#defaf3",
         "rec_bac": "#defaf3",
         "Add_details_bac": "#fcf4f0",
         "card-background": "#7FBBF6",
+        "mild-bg":"#e6e6e6"
       },
       height: {
         "88": "22rem",

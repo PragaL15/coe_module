@@ -84,7 +84,7 @@ export default function FacultyAdd({ goToStepper = () => {}, exitStepper = () =>
   };
 
   return (
-    <div className="w-full p-6 bg-gray-100">
+    <div className="w-full p-6 bg-#f2f2f2 rounded-md">
       <h1 className="text-2xl font-bold mb-6">Add Faculty Details</h1>
       <div className="grid md:grid-cols-2 gap-6 bg-white p-6 border rounded-lg shadow-lg">
         <div>
