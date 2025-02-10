@@ -17,7 +17,7 @@ const RoutesComponent = () => {
     <BrowserRouter>
       <Routes>
         {/* Faculty routes */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/FacHome" element={<Home />} />
         <Route path="/FacRequest" element={<RequestForm />} />
         <Route path="/FacRequestStatus" element={<StatusPage />} />
